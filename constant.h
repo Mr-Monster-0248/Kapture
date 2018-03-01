@@ -7,10 +7,12 @@
 
 
     // Dimentions
+    #define NBR_CASE_X 30
+    #define NBR_CASE_Y 20
     #define CASE_HEIGHT 32
     #define CASE_WIDTH CASE_HEIGHT
-    #define FIELD_HEIGHT CASE_HEIGHT * 20
-    #define FIELD_WIDHT CASE_WIDTH * 30
+    #define FIELD_HEIGHT CASE_HEIGHT * NBR_CASE_Y
+    #define FIELD_WIDHT CASE_WIDTH * NBR_CASE_X
     #define LOG_HEIGHT CASE_HEIGHT * 5
     #define LOG_WIDTH FIELD_WIDHT
     #define INFOBAR_HEIGHT FIELD_HEIGHT + LOG_HEIGHT
@@ -33,5 +35,25 @@
     // Basic constants
     #define TRUE 1
     #define FALSE 0
+
+
+    // Structure of the charachter
+    typedef struct Character
+    {
+        int team;
+        int type;
+        int flag;
+        int actionPoint;
+    } Character;
+
+    // Structure of a case of field
+    typedef struct Case
+    {
+        int field;
+        Character pawn;
+        int visible_red;
+        int visible_blue;
+    }Case;
+
 
 #endif

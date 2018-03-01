@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     p_log.y = FIELD_HEIGHT;
 
     SDL_Init(SDL_INIT_VIDEO); //Demarage SDL en mode video
-    SDL_WM_SetCaption("Fenêtre SDL <3", NULL);// titre de la fenetre
+    SDL_WM_SetCaption("Kapture", NULL);// titre de la fenetre
 
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_HWSURFACE); //creation de la fenetre principal
     obj = SDL_CreateRGBSurface(SDL_HWSURFACE, CASE_WIDTH, CASE_HEIGHT, 32, 0, 0, 0, 0); //creation d'une surface
