@@ -4,17 +4,18 @@ Case** init_map();
 
 int main(int argc, char *argv[])
 {
-    Case map[NBR_CASE_Y][NBR_CASE_X] = init_map();
+    Case **map = init_map();
     return 0;
 }
 
 Case** init_map()
 {
-    Case map[NBR_CASE_Y][NBR_CASE_X];
     int i, j;
+    Case **map = (Case**) malloc(NBR_CASE_Y * sizeof(Case*));
 
     for (i = 0; i < NBR_CASE_Y; i++)
     {
+        map[i] = (Case*) malloc(NBR_CASE_X * sizeof(Case));
         for (j = 0; j < NBR_CASE_X; j++)
         {
             map[i][j].field = NORMAL;
@@ -26,5 +27,6 @@ Case** init_map()
             map[i][j].visible_blue = 0;
         }
     }
+
     return map;
 }
