@@ -1,4 +1,4 @@
-#include "constant.h"
+#include "headers/constant.h"
 
 //met la fenetre en pause
 void pause();
