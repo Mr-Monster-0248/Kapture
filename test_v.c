@@ -1,21 +1,21 @@
 #include "constant.h"
 
-Case** init_map();
+Square** init_map();
 
 int main(int argc, char *argv[])
 {
-    Case **map = init_map();
+    Square **map = init_map();
     return 0;
 }
 
-Case** init_map()
+Square** init_map()
 {
     int i, j;
-    Case **map = (Case**) malloc(NBR_CASE_Y * sizeof(Case*));
+    Square **map = (Square**) malloc(NBR_CASE_Y * sizeof(Square*));
 
     for (i = 0; i < NBR_CASE_Y; i++)
     {
-        map[i] = (Case*) malloc(NBR_CASE_X * sizeof(Case));
+        map[i] = (Square*) malloc(NBR_CASE_X * sizeof(Square));
         for (j = 0; j < NBR_CASE_X; j++)
         {
             map[i][j].field = NORMAL;

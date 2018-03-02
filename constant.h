@@ -47,7 +47,7 @@
     } Character;
 
     // Structure of a case of field
-    typedef struct Case
+    typedef struct Square
     {
         int field;
         Character pawn;
