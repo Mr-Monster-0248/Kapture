@@ -31,6 +31,11 @@
     #define SHOCK_TROOPS 3
     #define FLAG 4
 
+    // PA per Characters
+    #define PA_SCOUT 5
+    #define PA_INFANTRYMAN 3
+    #define PA_SHOCK 2
+
     // Basic constants
     #define TRUE 1
     #define FALSE 0

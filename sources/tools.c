@@ -23,6 +23,44 @@ Square** init_map()
 }
 
 
+Player** init_players(int number_team, int nbr_scout, int nbr_infantryman, int nbr_shock)
+{
+    int i, j;
+    Player **players = (Player**) malloc(number_team * sizeof(Player*));
+
+    for (i = 0; i < number_team; i++)
+    {
+        players[i] = (Player*) malloc((nbr_scout + nbr_infantryman + nbr_shock) * sizeof(Player));
+        for (j = 0; j < nbr_scout; j++)
+        {
+            players[i][j].type = SCOUT;
+            players[i][j].flag = FALSE;
+            players[i][j].actionPoint = PA_SCOUT;
+            players[i][j].x = 0;
+            players[i][j].y = 0;
+        }
+        for (j; j < (nbr_scout + nbr_infantryman); j++)
+        {
+            players[i][j].type = INFANTRYMAN;
+            players[i][j].flag = FALSE;
+            players[i][j].actionPoint = PA_INFANTRYMAN;
+            players[i][j].x = 0;
+            players[i][j].y = 0;
+        }
+        for (j; j < (nbr_scout + nbr_infantryman + nbr_shock); j++)
+        {
+            players[i][j].type = SHOCK_TROOPS;
+            players[i][j].flag = FALSE;
+            players[i][j].actionPoint = PA_SHOCK;
+            players[i][j].x = 0;
+            players[i][j].y = 0;
+        }
+    }
+
+    return players;
+}
+
+
 void free_2D_array(void** array, int size_x)
 {
     int i = 0;
