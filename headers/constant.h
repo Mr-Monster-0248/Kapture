@@ -3,7 +3,6 @@
 
     #include <stdio.h>
     #include <stdlib.h>
-    #include <SDL/SDL.h>
 
 
     // Dimentions
@@ -53,7 +52,7 @@
         Character pawn;
         int visible_red;
         int visible_blue;
-    }Case;
+    }Square;
 
 
 #endif

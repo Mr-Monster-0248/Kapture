@@ -1,4 +1,4 @@
-#include "headers/constant.h"
+#include "../headers/constant.h"
 
 Square** init_map()
 {
@@ -21,4 +21,15 @@ Square** init_map()
     }
 
     return map;
+}
+
+
+void free_2D_array(void** array, int size_x)
+{
+    int i = 0;
+
+    for (i = 0; i < size_x; i++)
+        free(array[i]);
+
+    free(array);
 }
