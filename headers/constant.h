@@ -43,7 +43,7 @@
         int actionPoint;
         int x;
         int y;
-    }
+    } Player;
 
     // Structure of the charachter on the map
     typedef struct Character
