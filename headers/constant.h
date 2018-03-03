@@ -35,14 +35,22 @@
     #define TRUE 1
     #define FALSE 0
 
+    // Structure of a charachter in a team
+    typedef struct Player
+    {
+        int type;
+        int flag;
+        int actionPoint;
+        int x;
+        int y;
+    }
 
-    // Structure of the charachter
+    // Structure of the charachter on the map
     typedef struct Character
     {
         int team;
         int type;
         int flag;
-        int actionPoint;
     } Character;
 
     // Structure of a case of field

@@ -14,7 +14,6 @@ Square** init_map()
             map[i][j].pawn.team = 0;
             map[i][j].pawn.type = EMPTY;
             map[i][j].pawn.flag = FALSE;
-            map[i][j].pawn.actionPoint = 0;
             map[i][j].visible_red = 0;
             map[i][j].visible_blue = 0;
         }
