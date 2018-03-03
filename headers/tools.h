@@ -8,6 +8,9 @@
     // Initialisaton of the map with empty pawn and normal field
     Square** init_map();
 
+    // Initialisaton of the teams
+    Player** init_players(int number_team, int nbr_scout, int nbr_infantryman, int nbr_shock);
+
     // ======= Other tools =======
 
     // Function to free a 2 dimentional array
