@@ -9,13 +9,13 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-Square** init_map()
+Square** load_map(char *file_path)
 {
     int i, j, k, x;
     Square **map = (Square**) malloc(NBR_CASE_Y * sizeof(Square*));
 
     FILE* fichier = NULL;
-    fichier = fopen("map.txt","r");
+    fichier = fopen(file_path,"r");
 
     if (fichier == NULL)
     {

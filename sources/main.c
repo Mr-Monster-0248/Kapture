@@ -1,6 +1,6 @@
 #include "../headers/constant.h"
 #include "../headers/display.h"
-#include <SDL/SDL.h>
+#include "../headers/tools.h"
 
 void pause();
 
@@ -9,8 +9,11 @@ int main(int argc, char *argv[])
     // Initialisation of surface variables
     SDL_Surface *screen = NULL; // principal screen
     SDL_Surface *infobar = NULL, *logscreen = NULL;
+    SDL_Surface *normal = NULL; // *forest = NULL, *river = NULL; // Field sprites
 
     int continuer = 1;
+    Square **map = load_map("map.txt");
+
     SDL_Event event;
     Uint32 colorkey;
 
@@ -34,6 +37,13 @@ int main(int argc, char *argv[])
     infobar = SDL_CreateRGBSurface(SDL_HWSURFACE, INFOBAR_WIDTH, INFOBAR_HEIGHT, 32, 0, 0, 0, 0); // Infobar init
     logscreen = SDL_CreateRGBSurface(SDL_HWSURFACE, LOG_WIDTH, LOG_HEIGHT, 32, 0, 0, 0, 0); // Log initialisation
 
+    normal = SDL_LoadBMP("sources/NORMAL.bmp");
+
+    if(normal == NULL)
+        fprintf(stderr, "C'est la merde: %s\n", SDL_GetError());
+    // forest = SDL_LoadBMP("../image/FOREST.bmp");
+    // river = = SDL_LoadBMP("../image/RIVER.bmp");
+
 
     if (screen == NULL) // Si l'ouverture a échoué, on le note et on arrête
     {
@@ -45,12 +55,18 @@ int main(int argc, char *argv[])
     SDL_FillRect(logscreen, NULL, SDL_MapRGB(screen->format, 255, 255, 255)); //couleur pour surface infobar
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 17, 206, 112)); //couleur pour surface screen
 
+    display_field(screen, map);
+
     SDL_BlitSurface(logscreen, NULL, screen, &p_log);
     SDL_BlitSurface(infobar, NULL, screen, &p_info); //Blit de la surface infobar sur screen
+    SDL_BlitSurface(normal, NULL, screen, &origine);
     SDL_Flip(screen); // Mise à jour de l'écran avec sa nouvelle couleur
 
     pause();
 
+    SDL_FreeSurface(normal);
+    // SDL_FreeSurface(river);
+    // SDL_FreeSurface(forest);
     SDL_FreeSurface(logscreen);
     SDL_FreeSurface(infobar);
     SDL_Quit();

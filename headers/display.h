@@ -12,7 +12,7 @@
 
     // Square of the field
     #define SQUARE_HEIGHT 32
-    #define SQUARE_WIDTH CASE_HEIGHT
+    #define SQUARE_WIDTH SQUARE_HEIGHT
 
     // Window where is display the visible field
     #define FIELD_HEIGHT 640
@@ -25,5 +25,11 @@
     // Window where the information about the team is displayed
     #define INFOBAR_HEIGHT 800
     #define INFOBAR_WIDTH 320
+
+
+    // ===== Functions =====
+
+    // Function to display the map
+    void display_field(SDL_Surface *screen, Square **map);
 
 #endif

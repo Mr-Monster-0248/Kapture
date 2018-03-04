@@ -8,6 +8,9 @@
     // Initialisaton of the map with empty pawn and normal field
     Square** init_map();
 
+    // Initialize a map from a file
+    Square** load_map(char *file_path);
+
     // Initialisaton of the teams
     Player** init_players(int number_team, int nbr_scout, int nbr_infantryman, int nbr_shock);
 
