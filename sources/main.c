@@ -13,12 +13,8 @@ int main(int argc, char *argv[])
     SDL_Surface *infobar = NULL, *logscreen = NULL;
     SDL_Surface *normal = NULL; // *forest = NULL, *river = NULL; // Field sprites
 
-    int continuer = 1;
     Square **map = load_map("map.txt");
     Player **players = init_players(2, 4, 2, 1);
-
-    SDL_Event event;
-    Uint32 colorkey;
 
     //initialisation des position
     SDL_Rect origine;

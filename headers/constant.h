@@ -38,8 +38,7 @@
         int type;
         int flag;
         int actionPoint;
-        int x;
-        int y;
+        SDL_Rect position;
     } Player;
 
     // Structure of the charachter on the map

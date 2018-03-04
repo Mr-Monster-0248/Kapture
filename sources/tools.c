@@ -25,7 +25,7 @@ Square** init_map()
 
 Square** load_map(char *file_path)
 {
-    int i, j, k, x;
+    int i, j, x;
     Square **map = (Square**) malloc(NBR_CASE_Y * sizeof(Square*));
 
     FILE* fichier = NULL;
@@ -36,8 +36,6 @@ Square** load_map(char *file_path)
         printf("il manque le fichier map.txt");
     }
 
-
-    k = 0;
     for (i = 0; i < NBR_CASE_Y; i++)
     {
         map[i] = (Square*) malloc(NBR_CASE_X * sizeof(Square));
@@ -65,31 +63,29 @@ Player** init_players(int number_team, int nbr_scout, int nbr_infantryman, int n
 
     for (i = 0; i < number_team; i++)
     {
-        players[i] = (Player*) malloc((nbr_scout + nbr_infantryman + nbr_shock) * sizeof(Player));
+        players[i] = (Player*) malloc((nbr_scout + nbr_infantryman + nbr_shock + 1) * sizeof(Player));
         for (j = 0; j < nbr_scout; j++)
         {
             players[i][j].type = SCOUT;
             players[i][j].flag = FALSE;
             players[i][j].actionPoint = PA_SCOUT;
-            players[i][j].x = 0;
-            players[i][j].y = 0;
         }
-        for (j; j < (nbr_scout + nbr_infantryman); j++)
+        for (j = j; j < (nbr_scout + nbr_infantryman); j++)
         {
             players[i][j].type = INFANTRYMAN;
             players[i][j].flag = FALSE;
             players[i][j].actionPoint = PA_INFANTRYMAN;
-            players[i][j].x = 0;
-            players[i][j].y = 0;
         }
-        for (j; j < (nbr_scout + nbr_infantryman + nbr_shock); j++)
+        for (j = j; j < (nbr_scout + nbr_infantryman + nbr_shock); j++)
         {
             players[i][j].type = SHOCK_TROOPS;
             players[i][j].flag = FALSE;
             players[i][j].actionPoint = PA_SHOCK;
-            players[i][j].x = 0;
-            players[i][j].y = 0;
         }
+
+        players[i][j].type = FLAG;
+        players[i][j].flag = FALSE;
+        players[i][j].actionPoint = 0;
     }
 
     return players;
@@ -98,44 +94,33 @@ Player** init_players(int number_team, int nbr_scout, int nbr_infantryman, int n
 
 void init_position(Square** map, Player** players, int number_team, int nbr_members)
 {
-    int i, j, x, y;
+    int i, flag_x, flag_y, x, y, team_number;
 
-    y = rand()%20;
-    x = (rand()%4)+1;
-    map[y][x].pawn.type = FLAG;
-    map[y][x].pawn.team = 1;
-
-    y = rand()%20;
-    x = (rand()%4)+25;
-    map[y][x].pawn.type = FLAG;
-    map[y][x].pawn.team = 2;
-
-    for (i = 0; i < number_team; i++)
+    for(team_number = 0; team_number < number_team; team_number ++)
     {
-        for (j = 0; j < (nbr_members); j++)
-        {
-            if (i == 0)
-            {
-                do
-                {
-                    y = rand()%20;
-                    x = (rand()%4)+1;
-                } while(map[y][x].pawn.type != EMPTY);
-            }
-            else
-            {
-                do
-                {
-                    y = rand()%20;
-                    x = (rand()%4)+25;
-                } while(map[y][x].pawn.type != EMPTY);
-            }
-            map[y][x].pawn.type = players[i][j].type;
-            map[y][x].pawn.team = i + 1;
-            players[i][j].x = x;
-            players[i][j].y = y;
-        }
+        flag_y = rand() % (NBR_CASE_Y - 6) + 3;
+        if(team_number == 0)
+            flag_x = 3;
+        else
+            flag_x = NBR_CASE_X - 4;
+        map[flag_y][flag_x].pawn.type = FLAG;
+        map[flag_y][flag_x].pawn.team = team_number + 1;
+        players[team_number][nbr_members].position.x = flag_x;
+        players[team_number][nbr_members].position.y = flag_y;
 
+        for(i = 0; i < nbr_members; i++)
+        {
+            do
+            {
+                y = rand() % 4 + flag_y - 2;
+                x = rand() % 4 + flag_x - 2;
+            } while(map[y][x].pawn.type != EMPTY);
+
+            map[y][x].pawn.type = players[team_number][i].type;
+            map[y][x].pawn.team = team_number + 1;
+            players[team_number][i].position.x = x;
+            players[team_number][i].position.y = y;
+        }
     }
 }
 
