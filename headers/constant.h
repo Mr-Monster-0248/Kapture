@@ -35,7 +35,6 @@
     // Structure of a charachter in a team
     typedef struct Player
     {
-        int id;
         int type;
         int flag;
         int actionPoint;
@@ -45,6 +44,7 @@
     // Structure of the charachter on the map
     typedef struct Character
     {
+        int id;
         int team;
         int type;
         int flag;

@@ -66,26 +66,22 @@ Player** init_players(int number_team, int nbr_scout, int nbr_infantryman, int n
         players[i] = (Player*) malloc((nbr_scout + nbr_infantryman + nbr_shock + 1) * sizeof(Player));
         for (j = 0; j < nbr_scout; j++)
         {
-            players[i][j].id = j;
             players[i][j].type = SCOUT;
             players[i][j].flag = FALSE;
             players[i][j].actionPoint = PA_SCOUT;
         }
         for (j = j; j < (nbr_scout + nbr_infantryman); j++)
         {
-            players[i][j].id = j;
             players[i][j].type = INFANTRYMAN;
             players[i][j].flag = FALSE;
             players[i][j].actionPoint = PA_INFANTRYMAN;
         }
         for (j = j; j < (nbr_scout + nbr_infantryman + nbr_shock); j++)
         {
-            players[i][j].id = j;
             players[i][j].type = SHOCK_TROOPS;
             players[i][j].flag = FALSE;
             players[i][j].actionPoint = PA_SHOCK;
         }
-        players[i][j].id = j;
         players[i][j].type = FLAG;
         players[i][j].flag = FALSE;
         players[i][j].actionPoint = 0;
@@ -121,6 +117,7 @@ void init_position(Square** map, Player** players, int number_team, int nbr_memb
 
             map[y][x].pawn.type = players[team_number][i].type;
             map[y][x].pawn.team = team_number + 1;
+            map[y][x].pawn.id = i;
             players[team_number][i].position.x = x;
             players[team_number][i].position.y = y;
         }
