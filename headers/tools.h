@@ -14,6 +14,10 @@
     // Initialisaton of the teams
     Player** init_players(int number_team, int nbr_scout, int nbr_infantryman, int nbr_shock);
 
+    // Place pawns for the first time
+    void init_position (Square** map, Player** players, int number_team, int nbr_scout, int nbr_infantryman, int nbr_shock);
+
+
     // ======= Other tools =======
 
     // Function to free a 2 dimentional array

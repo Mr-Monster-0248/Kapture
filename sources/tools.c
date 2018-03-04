@@ -97,17 +97,7 @@ Player** init_players(int number_team, int nbr_scout, int nbr_infantryman, int n
 }
 
 
-void free_2D_array(void** array, int size_x)
-{
-    int i = 0;
-
-    for (i = 0; i < size_x; i++)
-        free(array[i]);
-
-    free(array);
-}
-
-void init_position (Square** map, Player** players, int number_team, int nbr_scout, int nbr_infantryman, int nbr_shock)
+void init_position(Square** map, Player** players, int number_team, int nbr_scout, int nbr_infantryman, int nbr_shock)
 {
     int i, j, x, y;
 
@@ -131,7 +121,7 @@ void init_position (Square** map, Player** players, int number_team, int nbr_sco
                 {
                     y = rand()%20;
                     x = (rand()%4)+1;
-                } while(map[x][y].pawn.type != EMPTY);
+                } while(map[y][x].pawn.type != EMPTY);
             }
             else if (i == 2)
             {
@@ -139,13 +129,24 @@ void init_position (Square** map, Player** players, int number_team, int nbr_sco
                 {
                     y = rand()%20;
                     x = (rand()%4)+15;
-                } while(map[x][y].pawn.type != EMPTY);
+                } while(map[y][x].pawn.type != EMPTY);
             }
-            map[x][y].pawn.type = players[i][j].type;
-            map[x][y].pawn.team = i;
+            map[y][x].pawn.type = players[i][j].type;
+            map[y][x].pawn.team = i;
             players[i][j].x = x;
             players[i][j].y = y;
         }
 
     }
+}
+
+
+void free_2D_array(void** array, int size_x)
+{
+    int i = 0;
+
+    for (i = 0; i < size_x; i++)
+        free(array[i]);
+
+    free(array);
 }
