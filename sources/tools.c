@@ -50,7 +50,6 @@ Square** load_map(char *file_path)
             map[i][j].pawn.flag = FALSE;
             map[i][j].visible_red = 0;
             map[i][j].visible_blue = 0;
-            printf("%d",x-48);
         }
         fgetc(fichier);
     }
@@ -97,25 +96,25 @@ Player** init_players(int number_team, int nbr_scout, int nbr_infantryman, int n
 }
 
 
-void init_position(Square** map, Player** players, int number_team, int nbr_scout, int nbr_infantryman, int nbr_shock)
+void init_position(Square** map, Player** players, int number_team, int nbr_members)
 {
     int i, j, x, y;
 
     y = rand()%20;
     x = (rand()%4)+1;
-    map[x][y].pawn.type = FLAG;
-    map[x][y].pawn.team = 1;
+    map[y][x].pawn.type = FLAG;
+    map[y][x].pawn.team = 1;
 
     y = rand()%20;
-    x = (rand()%4)+15;
-    map[x][y].pawn.type = FLAG;
-    map[x][y].pawn.team = 2;
+    x = (rand()%4)+25;
+    map[y][x].pawn.type = FLAG;
+    map[y][x].pawn.team = 2;
 
     for (i = 0; i < number_team; i++)
     {
-        for (j = 0; j < (nbr_scout + nbr_infantryman + nbr_shock); j++)
+        for (j = 0; j < (nbr_members); j++)
         {
-            if (i == 1)
+            if (i == 0)
             {
                 do
                 {
@@ -123,16 +122,16 @@ void init_position(Square** map, Player** players, int number_team, int nbr_scou
                     x = (rand()%4)+1;
                 } while(map[y][x].pawn.type != EMPTY);
             }
-            else if (i == 2)
+            else
             {
                 do
                 {
                     y = rand()%20;
-                    x = (rand()%4)+15;
+                    x = (rand()%4)+25;
                 } while(map[y][x].pawn.type != EMPTY);
             }
             map[y][x].pawn.type = players[i][j].type;
-            map[y][x].pawn.team = i;
+            map[y][x].pawn.team = i + 1;
             players[i][j].x = x;
             players[i][j].y = y;
         }

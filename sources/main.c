@@ -6,6 +6,8 @@ void pause();
 
 int main(int argc, char *argv[])
 {
+    srand(time(NULL));
+
     // Initialisation of surface variables
     SDL_Surface *screen = NULL; // principal screen
     SDL_Surface *infobar = NULL, *logscreen = NULL;
@@ -13,6 +15,7 @@ int main(int argc, char *argv[])
 
     int continuer = 1;
     Square **map = load_map("map.txt");
+    Player **players = init_players(2, 4, 2, 1);
 
     SDL_Event event;
     Uint32 colorkey;
@@ -37,14 +40,6 @@ int main(int argc, char *argv[])
     infobar = SDL_CreateRGBSurface(SDL_HWSURFACE, INFOBAR_WIDTH, INFOBAR_HEIGHT, 32, 0, 0, 0, 0); // Infobar init
     logscreen = SDL_CreateRGBSurface(SDL_HWSURFACE, LOG_WIDTH, LOG_HEIGHT, 32, 0, 0, 0, 0); // Log initialisation
 
-    normal = SDL_LoadBMP("sources/NORMAL.bmp");
-
-    if(normal == NULL)
-        fprintf(stderr, "C'est la merde: %s\n", SDL_GetError());
-    // forest = SDL_LoadBMP("../image/FOREST.bmp");
-    // river = = SDL_LoadBMP("../image/RIVER.bmp");
-
-
     if (screen == NULL) // Si l'ouverture a échoué, on le note et on arrête
     {
         fprintf(stderr, "Impossible de charger le mode vidéo : %s\n", SDL_GetError());
@@ -54,6 +49,8 @@ int main(int argc, char *argv[])
     SDL_FillRect(infobar, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
     SDL_FillRect(logscreen, NULL, SDL_MapRGB(screen->format, 255, 255, 255)); //couleur pour surface infobar
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 17, 206, 112)); //couleur pour surface screen
+
+    init_position(map, players, 2, 7);
 
     display_field(screen, map);
 

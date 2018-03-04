@@ -15,7 +15,7 @@
     Player** init_players(int number_team, int nbr_scout, int nbr_infantryman, int nbr_shock);
 
     // Place pawns for the first time
-    void init_position (Square** map, Player** players, int number_team, int nbr_scout, int nbr_infantryman, int nbr_shock);
+    void init_position(Square** map, Player** players, int number_team, int nbr_members);
 
 
     // ======= Other tools =======
