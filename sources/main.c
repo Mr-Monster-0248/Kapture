@@ -24,6 +24,11 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
+    clear_log();
+
+    print_log(screen, "Map loaded");
+    print_log(screen, "Teams initialized");
+
     game(screen, map, players);
 
     SDL_Flip(screen); // Mise à jour de l'écran avec sa nouvelle couleur

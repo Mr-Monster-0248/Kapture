@@ -15,6 +15,9 @@
     // Main game fonction
     void game(SDL_Surface *screen, Square **map, Player **players);
 
+    // Function that execut a game turn
+    int game_turn(Square **map, Player **players, int team_number);
+
     // Move a pawn to an other position
     void move_pawn(Player** players, Square** map, SDL_Rect prev_loc, SDL_Rect actual_loc);
 

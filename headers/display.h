@@ -35,5 +35,9 @@
     // Function to display the infobar according to the player's team
     void display_infobar(SDL_Surface *screen, Player *players, int team_number);
 
+    // Print the log on the screen and on a separated file
+    void print_log(SDL_Surface *screen, char *message);
+    void clear_log();
+
 
 #endif

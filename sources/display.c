@@ -166,5 +166,16 @@ void display_infobar(SDL_Surface *screen, Player *players, int team_number)
 
 void print_log(SDL_Surface *screen, char *message)
 {
-    fprintf(gamelog, "%s\n", message);
+    FILE* logfile = NULL;
+    logfile = fopen("game.log","a");
+    fprintf(logfile, "%s\n", message);
+    fclose(logfile);
+}
+
+void clear_log()
+{
+    FILE* logfile = NULL;
+    logfile = fopen("game.log","w+");
+    fprintf(logfile, "");
+    fclose(logfile);
 }
