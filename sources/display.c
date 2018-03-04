@@ -162,3 +162,9 @@ void display_infobar(SDL_Surface *screen, Player *players, int team_number)
     for(i = 0; i < NBR_MEMBER; i++)
         SDL_FreeSurface(pawns_info[i]);
 }
+
+
+void print_log(SDL_Surface *screen, char *message)
+{
+    fprintf(gamelog, "%s\n", message);
+}
