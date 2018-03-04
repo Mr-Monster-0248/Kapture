@@ -23,4 +23,6 @@
     // Function to free a 2 dimentional array
     void free_2D_array(void** array, int size_x);
 
+    void check_alloc(void* p);
+
 #endif

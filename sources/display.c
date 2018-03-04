@@ -1,4 +1,5 @@
 #include "../headers/display.h"
+#include "../headers/game.h"
 
 void display_field(SDL_Surface *screen, Square **map)
 {
@@ -96,4 +97,68 @@ void display_field(SDL_Surface *screen, Square **map)
     SDL_FreeSurface(normal);
     SDL_FreeSurface(river);
     SDL_FreeSurface(forest);
+}
+
+
+void display_infobar(SDL_Surface *screen, Player *players, int team_number)
+{
+    int i;
+    SDL_Surface *infobar = NULL;
+    SDL_Surface *pawns_info[NBR_MEMBER] = {NULL};
+
+    Uint32 colorkey = SDL_MapRGB(screen->format, 0, 0, 255);
+
+
+    SDL_Rect position;
+
+    position.x = FIELD_WIDHT;
+    position.y = 0;
+
+    if(team_number == 1)
+    {
+        infobar = SDL_LoadBMP("image/INFOBAR_1.bmp");
+        check_alloc(infobar);
+        for(i = 0; i < NBR_MEMBER; i++)
+        {
+            if(i < NBR_SCOUT)
+                pawns_info[i] = SDL_LoadBMP("image/SCOUT_INFO_1.bmp");
+            else if(i < NBR_SCOUT + NBR_INFANTRYMAN)
+                pawns_info[i] = SDL_LoadBMP("image/INFANTRYMAN_INFO_1.bmp");
+            else
+                pawns_info[i] = SDL_LoadBMP("image/SHOCK_INFO_1.bmp");
+
+            SDL_SetColorKey(pawns_info[i], SDL_SRCCOLORKEY, colorkey);
+        }
+    }
+    else
+    {
+        infobar = SDL_LoadBMP("image/INFOBAR_2.bmp");
+        check_alloc(infobar);
+        for(i = 0; i < NBR_MEMBER; i++)
+        {
+            if(i < NBR_SCOUT)
+                pawns_info[i] = SDL_LoadBMP("image/SCOUT_INFO_2.bmp");
+            else if(i < NBR_SCOUT + NBR_INFANTRYMAN)
+                pawns_info[i] = SDL_LoadBMP("image/INFANTRYMAN_INFO_2.bmp");
+            else
+                pawns_info[i] = SDL_LoadBMP("image/SHOCK_INFO_2.bmp");
+
+            SDL_SetColorKey(pawns_info[i], SDL_SRCCOLORKEY, colorkey);
+        }
+    }
+
+    SDL_BlitSurface(infobar, NULL, screen, &position);
+
+    position.y = position.y + 150;
+    for(i = 0; i < NBR_MEMBER; i++)
+    {
+        SDL_BlitSurface(pawns_info[i], NULL, screen, &position);
+        position.y = position.y + 40;
+    }
+
+    SDL_Flip(screen);
+
+    SDL_FreeSurface(infobar);
+    for(i = 0; i < NBR_MEMBER; i++)
+        SDL_FreeSurface(pawns_info[i]);
 }

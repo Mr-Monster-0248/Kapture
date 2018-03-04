@@ -134,3 +134,9 @@ void free_2D_array(void** array, int size_x)
 
     free(array);
 }
+
+void check_alloc(void* p)
+{
+    if (!p)
+        exit(EXIT_FAILURE);
+}

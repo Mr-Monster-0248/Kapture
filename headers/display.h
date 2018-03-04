@@ -32,4 +32,8 @@
     // Function to display the map
     void display_field(SDL_Surface *screen, Square **map);
 
+    // Function to display the infobar according to the player's team
+    void display_infobar(SDL_Surface *screen, Player *players, int team_number);
+
+
 #endif

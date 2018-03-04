@@ -3,6 +3,7 @@
 
     #include "constant.h"
     #include "display.h"
+    #include "tools.h"
 
     #define NBR_OF_PLAYER 2
 
