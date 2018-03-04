@@ -35,6 +35,7 @@
     // Structure of a charachter in a team
     typedef struct Player
     {
+        int id;
         int type;
         int flag;
         int actionPoint;
