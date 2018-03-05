@@ -19,7 +19,6 @@
     int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_number);
 
     // Move a pawn to an other position
-    void move_pawn(Player** players, Square** map, SDL_Rect prev_loc, SDL_Rect new_loc);
-
+    void move_pawn(int id, Player** players, Square** map, SDL_Rect prev_loc, SDL_Rect new_loc);
 
 #endif

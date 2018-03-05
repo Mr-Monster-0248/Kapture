@@ -31,6 +31,8 @@ int main(int argc, char *argv[])
 
     game(screen, map, players);
 
+    fprintf(stderr, "exit game\n");
+
     SDL_Flip(screen); // Mise à jour de l'écran avec sa nouvelle couleur
 
     pause();

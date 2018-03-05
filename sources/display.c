@@ -73,7 +73,7 @@ void display_field(SDL_Surface *screen, Square **map)
                         break;
                 }
             }
-            else
+            else if(map[i][j].pawn.team == 2)
             {
                 switch (map[i][j].pawn.type)
                 {

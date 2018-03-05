@@ -17,7 +17,7 @@ void game(SDL_Surface *screen, Square **map, Player **players)
             win = game_turn(screen, map, players, team_number + 1);
             if(win == 2)
                 break;
-            print_log(screen, "End turn");
+            print_log(screen, "Next turn");
         }
     } while(!win);
 
@@ -35,11 +35,12 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
 
     for(i = 0; i < NBR_MEMBER; i++)
     {
-        while(players[team_number - 1][i].actionPoint != 0)
+        while(players[team_number - 1][i].actionPoint != 0 && event.type != SDL_QUIT)
         {
-            fprintf(stderr, "PA left %d\n", players[team_number - 1][i].actionPoint);
-            // print_log(screen, "wait move");
+            fprintf(stderr, "%d PA left for player %d\n", players[team_number - 1][i].actionPoint, i);
+            fprintf(stderr, "wait key\n");
             SDL_WaitEvent(&event);
+            fprintf(stderr, "key pressed\n");
             switch (event.type)
             {
                 case SDL_QUIT:
@@ -52,11 +53,26 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
                         case SDLK_w: // z in azerty keymap
                             move.y = players[team_number - 1][i].position.y - 1;
                             move.x = players[team_number - 1][i].position.x;
-
-                            players[team_number - 1][i].actionPoint--;
-
-                            move_pawn(players, map, players[team_number - 1][i].position, move);
-                            print_log(screen, "moove pawn up");
+                            fprintf(stderr, "move pawn %d\n", i);
+                            print_log(screen, "move pawn up");
+                            break;
+                        case SDLK_a: // q in azerty keymap
+                            move.y = players[team_number - 1][i].position.y;
+                            move.x = players[team_number - 1][i].position.x - 1;
+                            fprintf(stderr, "move pawn %d\n", i);
+                            print_log(screen, "move pawn left");
+                            break;
+                        case SDLK_s: // s in azerty keymap
+                            move.y = players[team_number - 1][i].position.y + 1;
+                            move.x = players[team_number - 1][i].position.x ;
+                            fprintf(stderr, "move pawn %d\n", i);
+                            print_log(screen, "move pawn down");
+                            break;
+                        case SDLK_d: // d in azerty keymap
+                            move.y = players[team_number - 1][i].position.y;
+                            move.x = players[team_number - 1][i].position.x + 1;
+                            fprintf(stderr, "move pawn %d\n", i);
+                            print_log(screen, "move pawn right");
                             break;
                         case SDLK_ESCAPE:
                             players[team_number - 1][i].actionPoint = 0;
@@ -64,8 +80,11 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
                             return 2;
                             break;
                     }
+                    move_pawn(i, players, map, players[team_number - 1][i].position, move);
                     break;
             }
+
+            players[team_number - 1][i].actionPoint--;
 
             display_field(screen, map);
             SDL_Flip(screen);
@@ -75,19 +94,24 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
     return TRUE;
 }
 
-void move_pawn(Player** players, Square** map, SDL_Rect prev_loc, SDL_Rect new_loc)
+void move_pawn(int id, Player** players, Square** map, SDL_Rect prev_loc, SDL_Rect new_loc)
 {
-    int team, id;
+    int team;
     team = map[prev_loc.y][prev_loc.x].pawn.team;
-    id = map[prev_loc.y][prev_loc.x].pawn.id;
-    players[team][id].position.x = new_loc.x;
-    players[team][id].position.y = new_loc.y;
 
-    map[new_loc.y][new_loc.x].pawn.id = map[prev_loc.y][prev_loc.x].pawn.id;
-    map[new_loc.y][new_loc.x].pawn.team = map[prev_loc.y][prev_loc.x].pawn.team;
-    map[new_loc.y][new_loc.x].pawn.type = map[prev_loc.y][prev_loc.x].pawn.type;
-
+    map[prev_loc.y][prev_loc.x].pawn.id = 0;
+    map[prev_loc.y][prev_loc.x].pawn.team = 0;
     map[prev_loc.y][prev_loc.x].pawn.type = EMPTY;
+    map[prev_loc.y][prev_loc.x].pawn.flag = FALSE;
+
+    map[new_loc.y][new_loc.x].pawn.id = id;
+    map[new_loc.y][new_loc.x].pawn.team = team;
+    map[new_loc.y][new_loc.x].pawn.type = players[team - 1][id].type;
+    map[new_loc.y][new_loc.x].pawn.flag = players[team - 1][id].flag;
+
+    players[team - 1][id].position.x = new_loc.x;
+    players[team - 1][id].position.y = new_loc.y;
+
 
 
 
