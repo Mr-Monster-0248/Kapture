@@ -21,4 +21,7 @@
     // Move a pawn to an other position
     void move_pawn(int id, Player** players, Square** map, SDL_Rect prev_loc, SDL_Rect new_loc);
 
+    // Check if a move is possible
+    int check_move(Square **map, SDL_Rect position);
+
 #endif

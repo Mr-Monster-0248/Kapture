@@ -33,6 +33,9 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
     SDL_Event event;
     SDL_Rect move;
 
+    move.x = -1;
+    move.y = -1;
+
     for(i = 0; i < NBR_MEMBER; i++)
     {
         while(players[team_number - 1][i].actionPoint != 0 && event.type != SDL_QUIT)
@@ -80,11 +83,15 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
                             return 2;
                             break;
                     }
-                    move_pawn(i, players, map, players[team_number - 1][i].position, move);
                     break;
             }
 
-            players[team_number - 1][i].actionPoint--;
+            if(check_move(map, move))
+            {
+                move_pawn(i, players, map, players[team_number - 1][i].position, move);
+                players[team_number - 1][i].actionPoint--;
+            }
+
 
             display_field(screen, map);
             SDL_Flip(screen);
@@ -111,8 +118,19 @@ void move_pawn(int id, Player** players, Square** map, SDL_Rect prev_loc, SDL_Re
 
     players[team - 1][id].position.x = new_loc.x;
     players[team - 1][id].position.y = new_loc.y;
+}
 
-
-
-
+int check_move(Square **map, SDL_Rect position)
+{
+    if(position.x < 0 || position.y < 0 || position.x > NBR_CASE_X || position.y > NBR_CASE_Y)
+    {
+        return FALSE;
+    }
+    else
+    {
+        if(map[position.y][position.x].pawn.type != EMPTY)
+            return FALSE;
+        else
+            return TRUE;
+    }
 }
