@@ -40,6 +40,7 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
     {
         while(players[team_number - 1][i].actionPoint != 0 && event.type != SDL_QUIT)
         {
+            display_cursor(screen, players[team_number - 1][i]);
             fprintf(stderr, "%d PA left for player %d\n", players[team_number - 1][i].actionPoint, i);
             fprintf(stderr, "wait key\n");
             SDL_WaitEvent(&event);
@@ -81,25 +82,25 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
                             move.y = players[team_number - 1][i].position.y - 1;
                             move.x = players[team_number - 1][i].position.x - 1;
                             fprintf(stderr, "move pawn %d\n", i);
-                            print_log(screen, "move pawn right");
+                            print_log(screen, "move pawn up left");
                             break;
                         case SDLK_e: // e in azerty keymap
                             move.y = players[team_number - 1][i].position.y - 1;
                             move.x = players[team_number - 1][i].position.x + 1;
                             fprintf(stderr, "move pawn %d\n", i);
-                            print_log(screen, "move pawn right");
+                            print_log(screen, "move pawn up right");
                             break;
                         case SDLK_x: // x in azerty keymap
                             move.y = players[team_number - 1][i].position.y + 1;
                             move.x = players[team_number - 1][i].position.x + 1;
                             fprintf(stderr, "move pawn %d\n", i);
-                            print_log(screen, "move pawn right");
+                            print_log(screen, "move pawn down right");
                             break;
                         case SDLK_z: // w in azerty keymap
                             move.y = players[team_number - 1][i].position.y + 1;
                             move.x = players[team_number - 1][i].position.x - 1;
                             fprintf(stderr, "move pawn %d\n", i);
-                            print_log(screen, "move pawn right");
+                            print_log(screen, "move pawn down left");
                             break;
                         case SDLK_ESCAPE:
                             players[team_number - 1][i].actionPoint = 0;

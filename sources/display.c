@@ -164,6 +164,26 @@ void display_infobar(SDL_Surface *screen, Player *players, int team_number)
 }
 
 
+void display_cursor(SDL_Surface *screen, Player player)
+{
+    SDL_Surface *cursor = NULL;
+    Uint32 colorkey = SDL_MapRGB(screen->format, 0, 0, 255);
+
+    SDL_Rect position;
+
+    cursor = SDL_LoadBMP("image/CURSOR_GOLD.bmp");
+    SDL_SetColorKey(cursor, SDL_SRCCOLORKEY, colorkey);
+
+    position.x = player.position.x * SQUARE_WIDTH;
+    position.y = player.position.y * SQUARE_HEIGHT;
+
+    SDL_BlitSurface(cursor, NULL, screen, &position);
+
+    SDL_Flip(screen);
+
+    SDL_FreeSurface(cursor);
+}
+
 void print_log(SDL_Surface *screen, char *message)
 {
     FILE* logfile = NULL;
