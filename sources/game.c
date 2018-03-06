@@ -77,6 +77,30 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
                             fprintf(stderr, "move pawn %d\n", i);
                             print_log(screen, "move pawn right");
                             break;
+                        case SDLK_q: // a in azerty keymap
+                            move.y = players[team_number - 1][i].position.y - 1;
+                            move.x = players[team_number - 1][i].position.x - 1;
+                            fprintf(stderr, "move pawn %d\n", i);
+                            print_log(screen, "move pawn right");
+                            break;
+                        case SDLK_e: // e in azerty keymap
+                            move.y = players[team_number - 1][i].position.y - 1;
+                            move.x = players[team_number - 1][i].position.x + 1;
+                            fprintf(stderr, "move pawn %d\n", i);
+                            print_log(screen, "move pawn right");
+                            break;
+                        case SDLK_x: // x in azerty keymap
+                            move.y = players[team_number - 1][i].position.y + 1;
+                            move.x = players[team_number - 1][i].position.x + 1;
+                            fprintf(stderr, "move pawn %d\n", i);
+                            print_log(screen, "move pawn right");
+                            break;
+                        case SDLK_z: // w in azerty keymap
+                            move.y = players[team_number - 1][i].position.y + 1;
+                            move.x = players[team_number - 1][i].position.x - 1;
+                            fprintf(stderr, "move pawn %d\n", i);
+                            print_log(screen, "move pawn right");
+                            break;
                         case SDLK_ESCAPE:
                             players[team_number - 1][i].actionPoint = 0;
                             print_log(screen, "End turn");
@@ -122,7 +146,7 @@ void move_pawn(int id, Player** players, Square** map, SDL_Rect prev_loc, SDL_Re
 
 int check_move(Square **map, SDL_Rect position)
 {
-    if(position.x < 0 || position.y < 0 || position.x > NBR_CASE_X || position.y > NBR_CASE_Y)
+    if(position.x < 0 || position.y < 0 || position.x >= NBR_CASE_X || position.y >= NBR_CASE_Y)
     {
         return FALSE;
     }
