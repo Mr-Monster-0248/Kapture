@@ -16,7 +16,7 @@ void game(SDL_Surface *screen, Square **map, Player **players)
             display_infobar(screen, players[team_number], team_number + 1);
             win = game_turn(screen, map, players, team_number + 1);
             if(win == 2)
-                break;
+                break; 
             print_log(screen, "Next turn");
         }
     } while(!win);
@@ -52,7 +52,7 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
                     print_log(screen, "exit turn");
                     break;
                 case SDL_KEYDOWN:
-                    switch (event.key.keysym.sym)
+                    switch (event.key.keysym.sym) // associate move with the key pressed
                     {
                         case SDLK_w: // z in azerty keymap
                             move.y = players[team_number - 1][i].position.y - 1;
@@ -123,7 +123,7 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
         }
     }
 
-    return TRUE;
+    return TRUE; // TODO: check the win
 }
 
 void move_pawn(int id, Player** players, Square** map, SDL_Rect prev_loc, SDL_Rect new_loc)
