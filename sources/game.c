@@ -16,7 +16,7 @@ void game(SDL_Surface *screen, Square **map, Player **players)
             display_infobar(screen, players[team_number], team_number + 1);
             win = game_turn(screen, map, players, team_number + 1);
             if(win == 2)
-                break; 
+                break;
             print_log(screen, "Next turn");
         }
     } while(!win);
@@ -40,7 +40,7 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
     {
         while(players[team_number - 1][i].actionPoint != 0 && event.type != SDL_QUIT)
         {
-            display_cursor(screen, players[team_number - 1][i]);
+            display_cursor(screen, players[team_number - 1][i], i);
             fprintf(stderr, "%d PA left for player %d\n", players[team_number - 1][i].actionPoint, i);
             fprintf(stderr, "wait key\n");
             SDL_WaitEvent(&event);
@@ -117,7 +117,7 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
                 players[team_number - 1][i].actionPoint--;
             }
 
-
+            display_infobar(screen, players[team_number -1], team_number - 1);
             display_field(screen, map);
             SDL_Flip(screen);
         }

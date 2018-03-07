@@ -36,7 +36,7 @@
     void display_infobar(SDL_Surface *screen, Player *players, int team_number);
 
     // Display a curso to wich pawn is playing
-    void display_cursor(SDL_Surface *screen, Player player);
+    void display_cursor(SDL_Surface *screen, Player player, int id);
 
     // Print the log on the screen and on a separated file
     void print_log(SDL_Surface *screen, char *message);
