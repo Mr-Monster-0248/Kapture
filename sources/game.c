@@ -49,6 +49,7 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
                 case SDL_QUIT:
                     players[team_number - 1][i].actionPoint = 0;
                     print_log(screen, "exit turn");
+                    return 2;
                     break;
                 case SDL_KEYDOWN:
                     switch (event.key.keysym.sym) // associate move with the key pressed
