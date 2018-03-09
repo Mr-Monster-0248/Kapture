@@ -38,6 +38,9 @@
     // Display a curso to wich pawn is playing
     void display_cursor(SDL_Surface *screen, Player player, int id);
 
+    // Display the menu 
+    int main_menu(SDL_Surface *screen);
+
     // Print the log on the screen and on a separated file
     void print_log(SDL_Surface *screen, char *message);
     void clear_log();

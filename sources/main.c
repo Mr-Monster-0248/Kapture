@@ -7,7 +7,7 @@ void pause();
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
-
+    int i;
     SDL_Surface *screen = NULL; // principal screen
 
     Square **map = load_map("map.txt");
@@ -25,17 +25,35 @@ int main(int argc, char *argv[])
     }
 
     clear_log();
-
     print_log(screen, "Map loaded");
     print_log(screen, "Teams initialized");
 
-    game(screen, map, players);
+    switch (main_menu(screen))
+    {
+        case 1:
+            game(screen, map, players);
+            break;
+        case 2:
+            // TODO load game;
+            break;
+        default:
+            fprintf(stderr, "exit game\n");
+            break;
+    }
 
     fprintf(stderr, "exit game\n");
 
     SDL_Flip(screen); // Mise à jour de l'écran avec sa nouvelle couleur
 
-    pause();
+    //pause();
+
+    for(i = 0; i < NBR_CASE_Y; i++)
+        free(map[i]);
+    free(map);
+
+    for(i = 0; i < NBR_OF_PLAYER; i++)
+        free(players[i]);
+    free(players);
 
     SDL_Quit();
     return 0;

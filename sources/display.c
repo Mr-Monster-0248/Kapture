@@ -190,6 +190,52 @@ void display_cursor(SDL_Surface *screen, Player player, int id)
     SDL_FreeSurface(cursor);
 }
 
+
+int main_menu(SDL_Surface *screen)
+{
+    int choix;
+    SDL_Surface *menu = NULL;
+    SDL_Event event;
+    SDL_Rect pos;
+    pos.x = 0;
+    pos.y = 0;
+
+    menu = SDL_LoadBMP("image/Menu_kapture.bmp");
+
+    SDL_BlitSurface(menu, NULL, screen, &pos);
+    SDL_Flip(screen);
+
+    do {
+        SDL_WaitEvent(&event);
+        switch(event.type)
+        {
+            case SDL_QUIT:
+                choix = 0;
+                break;
+            case SDL_KEYDOWN:
+                switch (event.key.keysym.sym)
+                {
+                    case SDLK_ESCAPE:
+                        choix = 0;
+                        break;
+                    case SDLK_1:
+                        choix = 1;
+                        break;
+                    case SDLK_2:
+                        choix = 2;
+                        break;
+                    case SDLK_3:
+                        choix = 3;
+                        break;
+                }
+                break;
+        }
+    } while(choix < 0 || choix > 4);
+
+    SDL_FreeSurface(menu);
+    return choix;
+}
+
 void print_log(SDL_Surface *screen, char *message)
 {
     FILE* logfile = NULL;
