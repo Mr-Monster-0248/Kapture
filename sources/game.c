@@ -13,6 +13,7 @@ void game(SDL_Surface *screen, Square **map, Player **players)
     do{
         for(team_number = 0; team_number < NBR_OF_PLAYER; team_number++)
         {
+            give_pa(players);
             display_infobar(screen, players[team_number], team_number + 1);
             win = game_turn(screen, map, players, team_number + 1);
             if(win == 2)
@@ -38,13 +39,11 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
 
     for(i = 0; i < NBR_MEMBER; i++)
     {
-        while(players[team_number - 1][i].actionPoint != 0 && event.type != SDL_QUIT)
+        while(players[team_number - 1][i].actionPoint > 0 && event.type != SDL_QUIT)
         {
             display_cursor(screen, players[team_number - 1][i], i);
             fprintf(stderr, "%d PA left for player %d\n", players[team_number - 1][i].actionPoint, i);
-            fprintf(stderr, "wait key\n");
             SDL_WaitEvent(&event);
-            fprintf(stderr, "key pressed\n");
             switch (event.type)
             {
                 case SDL_QUIT:
@@ -114,16 +113,16 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
             if(check_move(map, move))
             {
                 move_pawn(i, players, map, players[team_number - 1][i].position, move);
-                players[team_number - 1][i].actionPoint--;
+                players[team_number - 1][i].actionPoint += remove_pa(map, players[team_number - 1][i]);
             }
 
-            display_infobar(screen, players[team_number -1], team_number - 1);
+            display_infobar(screen, players[team_number], team_number);
             display_field(screen, map);
-            SDL_Flip(screen);
+            //SDL_Flip(screen);
         }
     }
 
-    return TRUE; // TODO: check the win
+    return FALSE; // TODO: check the win
 }
 
 void move_pawn(int id, Player** players, Square** map, SDL_Rect prev_loc, SDL_Rect new_loc)
@@ -157,5 +156,33 @@ int check_move(Square **map, SDL_Rect position)
             return FALSE;
         else
             return TRUE;
+    }
+}
+
+
+int remove_pa(Square **map, Player player)
+{
+    if(map[player.position.y][player.position.x].field == NORMAL)
+        return -1;
+    else if(map[player.position.y][player.position.x].field == FOREST)
+        return -2;
+    else
+        return -10; // just to remove every PA
+}
+
+void give_pa(Player **players)
+{
+    int i, j;
+    for(i = 0; i < NBR_OF_PLAYER; i++)
+    {
+        for(j = 0; j < NBR_MEMBER; j++)
+        {
+            if(players[i][j].type == SCOUT)
+                players[i][j].actionPoint = PA_SCOUT;
+            else if(players[i][j].type == INFANTRYMAN)
+                players[i][j].actionPoint = PA_INFANTRYMAN;
+            else
+                players[i][j].actionPoint = PA_SHOCK;
+        }
     }
 }

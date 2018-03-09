@@ -24,4 +24,11 @@
     // Check if a move is possible
     int check_move(Square **map, SDL_Rect position);
 
+    // remove the right number of PA in funtion on the fild the pawn is leaving
+    int remove_pa(Square **map, Player player);
+
+    // Give back pa to players
+    void give_pa(Player **players);
+
+
 #endif
