@@ -11,9 +11,9 @@ void display_field(SDL_Surface *screen, Square **map)
 
     Uint32 colorkey = SDL_MapRGB(screen->format, 0, 0, 255);
 
-    normal = SDL_LoadBMP("image/NORMAL.bmp");
-    forest = SDL_LoadBMP("image/FOREST.bmp");
-    river = SDL_LoadBMP("image/RIVER.bmp");
+    normal = SDL_LoadBMP("image/NORMAL1.bmp");
+    forest = SDL_LoadBMP("image/FOREST1.bmp");
+    river = SDL_LoadBMP("image/RIVER1.bmp");
 
     flag1 = SDL_LoadBMP("image/FLAG_1.bmp");
     scout1 = SDL_LoadBMP("image/SCOUT_1.bmp");
