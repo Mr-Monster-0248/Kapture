@@ -18,6 +18,12 @@
     void init_position(Square** map, Player** players, int number_team, int nbr_members);
 
 
+    // ======= Map discovery ========
+
+    // Unlock map for teams
+    void discover_map(Square **map, SDL_Rect position; int team); 
+
+
     // ======= Other tools =======
 
     // Function to free a 2 dimentional array

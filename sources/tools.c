@@ -1,4 +1,5 @@
 #include "../headers/constant.h"
+#include "../headers/tools.h"
 
 Square** init_map()
 {
@@ -122,10 +123,39 @@ void init_position(Square** map, Player** players, int number_team, int nbr_memb
             players[team_number][i].position.y = y;
             players[team_number][i].origine.x = x;
             players[team_number][i].origine.y = y;
+
+            discover_map(map, players[team_number][i].position, team_number);
         }
     }
 }
 
+void discover_map(Square **map, SDL_Rect position; int team)
+{
+    int i, j;
+
+    if(team == 1)
+    {
+        for(i = position.y -1; i <= position.y +1; i++)
+        {
+            for(j = position.x -1; j <= position.x +1; j++)
+            {
+                if(i > 0 && j > 0 && i < NBR_CASE_Y && j < NBR_CASE_X && i == position.y && j == position.x)
+                    map[i][j].visible_red = TRUE;
+            }
+        }
+    }
+    else
+    {
+        for(i = position.y -1; i <= position.y +1; i++)
+        {
+            for(j = position.x -1; j <= position.x +1; j++)
+            {
+                if(i > 0 && j > 0 && i < NBR_CASE_Y && j < NBR_CASE_X && i == position.y && j == position.x)
+                    map[i][j].visible_blue = TRUE;
+            }
+        }
+    }
+}
 
 void free_2D_array(void** array, int size_x)
 {
@@ -140,5 +170,8 @@ void free_2D_array(void** array, int size_x)
 void check_alloc(void* p)
 {
     if (!p)
+    {
+        fprintf(stderr, "Allocation error\n");
         exit(EXIT_FAILURE);
+    }
 }
