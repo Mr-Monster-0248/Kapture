@@ -120,6 +120,8 @@ void init_position(Square** map, Player** players, int number_team, int nbr_memb
             map[y][x].pawn.id = i;
             players[team_number][i].position.x = x;
             players[team_number][i].position.y = y;
+            players[team_number][i].origine.x = x;
+            players[team_number][i].origine.y = y;
         }
     }
 }
