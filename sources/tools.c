@@ -129,7 +129,7 @@ void init_position(Square** map, Player** players, int number_team, int nbr_memb
     }
 }
 
-void discover_map(Square **map, SDL_Rect position; int team)
+void discover_map(Square **map, SDL_Rect position, int team)
 {
     int i, j;
 

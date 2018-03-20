@@ -21,7 +21,7 @@
     // ======= Map discovery ========
 
     // Unlock map for teams
-    void discover_map(Square **map, SDL_Rect position; int team); 
+    void discover_map(Square **map, SDL_Rect position, int team);
 
 
     // ======= Other tools =======

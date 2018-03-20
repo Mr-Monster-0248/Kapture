@@ -32,13 +32,22 @@
     // Function to display the map
     void display_field(SDL_Surface *screen, Square **map);
 
+    // display the red fog of war
+    void display_red(SDL_Surface *screen, Square **map);
+
+    // Display the field in function of the team
+    void display_teamVue(SDL_Surface *screen, Square **map, int team_number);
+
+    // Display the blue team
+    void display_blue(SDL_Surface *screen, Square **map);
+
     // Function to display the infobar according to the player's team
     void display_infobar(SDL_Surface *screen, Player *players, int team_number);
 
     // Display a curso to wich pawn is playing
     void display_cursor(SDL_Surface *screen, Player player, int id);
 
-    // Display the menu 
+    // Display the menu
     int main_menu(SDL_Surface *screen);
 
     // Print the log on the screen and on a separated file

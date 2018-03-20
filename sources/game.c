@@ -8,7 +8,7 @@ void game(SDL_Surface *screen, Square **map, Player **players)
     //initialisation des positions
     init_position(map, players, NBR_OF_PLAYER, NBR_MEMBER);
 
-    display_field(screen, map);
+    // display_field(screen, map);
 
     do{
         for(team_number = 0; team_number < NBR_OF_PLAYER; team_number++)
@@ -41,6 +41,7 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
     {
         while(players[team_number - 1][i].actionPoint > 0 && event.type != SDL_QUIT)
         {
+            display_teamVue(screen, map, team_number-1);
             display_cursor(screen, players[team_number - 1][i], i);
             fprintf(stderr, "%d PA left for player %d\n", players[team_number - 1][i].actionPoint, i);
             SDL_WaitEvent(&event);
@@ -114,11 +115,13 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
             if(check_move(map, move))
             {
                 move_pawn(i, players, map, players[team_number - 1][i].position, move);
+                discover_map(map, move, team_number-1);
                 players[team_number - 1][i].actionPoint += remove_pa(map, players[team_number - 1][i]);
             }
 
             display_infobar(screen, players[team_number], team_number);
-            display_field(screen, map);
+            display_teamVue(screen, map, team_number-1);
+            //display_field(screen, map);
             //SDL_Flip(screen);
         }
     }

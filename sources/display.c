@@ -100,6 +100,101 @@ void display_field(SDL_Surface *screen, Square **map)
 }
 
 
+void display_red(SDL_Surface *screen, Square **map)
+{
+    int i, j;
+    SDL_Rect position;
+    SDL_Surface *normal = NULL, *forest = NULL, *river = NULL; // Field sprites
+
+    normal = SDL_LoadBMP("image/NORMAL1.bmp");
+    forest = SDL_LoadBMP("image/FOREST1.bmp");
+    river = SDL_LoadBMP("image/RIVER1.bmp");
+
+    for(i = 0; i < NBR_CASE_Y; i++)
+    {
+        for(j = 0; j < NBR_CASE_X; j++)
+        {
+            position.x = j * SQUARE_WIDTH;
+            position.y = i * SQUARE_WIDTH;
+
+            if(map[i][j].visible_red == TRUE)
+            {
+                switch(map[i][j].field)
+                {
+                    case NORMAL:
+                        SDL_BlitSurface(normal, NULL, screen, &position);
+                        break;
+                    case FOREST:
+                        SDL_BlitSurface(forest, NULL, screen, &position);
+                        break;
+                    case RIVER:
+                        SDL_BlitSurface(river, NULL, screen, &position);
+                        break;
+                }
+            }
+        }
+    }
+
+    SDL_FreeSurface(normal);
+    SDL_FreeSurface(forest);
+    SDL_FreeSurface(river);
+}
+
+
+void display_blue(SDL_Surface *screen, Square **map)
+{
+    int i, j;
+    SDL_Rect position;
+    SDL_Surface *normal = NULL, *forest = NULL, *river = NULL; // Field sprites
+
+    normal = SDL_LoadBMP("image/NORMAL1.bmp");
+    forest = SDL_LoadBMP("image/FOREST1.bmp");
+    river = SDL_LoadBMP("image/RIVER1.bmp");
+
+    for(i = 0; i < NBR_CASE_Y; i++)
+    {
+        for(j = 0; j < NBR_CASE_X; j++)
+        {
+            position.x = j * SQUARE_WIDTH;
+            position.y = i * SQUARE_WIDTH;
+
+            if(map[i][j].visible_blue == TRUE)
+            {
+                switch(map[i][j].field)
+                {
+                    case NORMAL:
+                        SDL_BlitSurface(normal, NULL, screen, &position);
+                        break;
+                    case FOREST:
+                        SDL_BlitSurface(forest, NULL, screen, &position);
+                        break;
+                    case RIVER:
+                        SDL_BlitSurface(river, NULL, screen, &position);
+                        break;
+                }
+            }
+        }
+    }
+
+    SDL_FreeSurface(normal);
+    SDL_FreeSurface(forest);
+    SDL_FreeSurface(river);
+}
+
+
+void display_teamVue(SDL_Surface *screen, Square **map, int team_number)
+{
+    if(team_number == 1)
+    {
+        display_red(screen, map);
+    }
+    else
+    {
+        display_blue(screen, map);
+    }
+}
+
+
 void display_infobar(SDL_Surface *screen, Player *players, int team_number)
 {
     int i;
