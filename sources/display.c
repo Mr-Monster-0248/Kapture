@@ -184,14 +184,26 @@ void display_blue(SDL_Surface *screen, Square **map)
 
 void display_teamVue(SDL_Surface *screen, Square **map, int team_number)
 {
+    SDL_Surface *rebel = NULL, *empire = NULL;
+    SDL_Rect position;
+    position.x = 0;
+    position.y = 0;
+
     if(team_number == 1)
     {
+        rebel = SDL_LoadBMP("image/fond_rebel.bmp");
+        SDL_BlitSurface(rebel, NULL, screen, &position);
         display_red(screen, map);
     }
     else
     {
+        empire = SDL_LoadBMP("image/fond_empire.bmp");
+        SDL_BlitSurface(empire, NULL, screen, &position);
         display_blue(screen, map);
     }
+
+    SDL_FreeSurface(rebel);
+    SDL_FreeSurface(empire);
 }
 
 

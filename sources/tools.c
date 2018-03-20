@@ -139,7 +139,7 @@ void discover_map(Square **map, SDL_Rect position, int team)
         {
             for(j = position.x -1; j <= position.x +1; j++)
             {
-                if(i > 0 && j > 0 && i < NBR_CASE_Y && j < NBR_CASE_X && i == position.y && j == position.x)
+                if(i >= 0 && j >= 0 && i < NBR_CASE_Y && j < NBR_CASE_X && (i == position.y || j == position.x))
                     map[i][j].visible_red = TRUE;
             }
         }
@@ -150,7 +150,7 @@ void discover_map(Square **map, SDL_Rect position, int team)
         {
             for(j = position.x -1; j <= position.x +1; j++)
             {
-                if(i > 0 && j > 0 && i < NBR_CASE_Y && j < NBR_CASE_X && i == position.y && j == position.x)
+                if(i >= 0 && j >= 0 && i < NBR_CASE_Y && j < NBR_CASE_X && (i == position.y || j == position.x))
                     map[i][j].visible_blue = TRUE;
             }
         }
