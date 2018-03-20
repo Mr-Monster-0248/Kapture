@@ -97,6 +97,16 @@ void display_field(SDL_Surface *screen, Square **map)
     SDL_FreeSurface(normal);
     SDL_FreeSurface(river);
     SDL_FreeSurface(forest);
+
+    SDL_FreeSurface(scout1);
+    SDL_FreeSurface(infantryman1);
+    SDL_FreeSurface(shock1);
+    SDL_FreeSurface(flag1);
+
+    SDL_FreeSurface(scout2);
+    SDL_FreeSurface(infantryman2);
+    SDL_FreeSurface(shock2);
+    SDL_FreeSurface(flag2);
 }
 
 
@@ -182,7 +192,64 @@ void display_blue(SDL_Surface *screen, Square **map)
 }
 
 
-void display_teamVue(SDL_Surface *screen, Square **map, int team_number)
+void display_team(SDL_Surface *screen, Square **map, Player *players, int team_number)
+{
+    int id;
+    SDL_Surface *flag = NULL, *scout = NULL, *infantryman = NULL, *shock = NULL;
+    Uint32 colorkey = SDL_MapRGB(screen->format, 0, 0, 255);
+    SDL_Rect position;
+
+    if(team_number == 1)
+    {
+        flag = SDL_LoadBMP("image/FLAG_1.bmp");
+        scout = SDL_LoadBMP("image/SCOUT_1.bmp");
+        infantryman = SDL_LoadBMP("image/INFANTRYMAN_1.bmp");
+        shock = SDL_LoadBMP("image/SHOCK_1.bmp");
+    }
+    else
+    {
+        flag = SDL_LoadBMP("image/FLAG_2.bmp");
+        scout = SDL_LoadBMP("image/SCOUT_2.bmp");
+        infantryman = SDL_LoadBMP("image/INFANTRYMAN_2.bmp");
+        shock = SDL_LoadBMP("image/SHOCK_2.bmp");
+    }
+
+
+    SDL_SetColorKey(flag, SDL_SRCCOLORKEY, colorkey);
+    SDL_SetColorKey(scout, SDL_SRCCOLORKEY, colorkey);
+    SDL_SetColorKey(infantryman, SDL_SRCCOLORKEY, colorkey);
+    SDL_SetColorKey(shock, SDL_SRCCOLORKEY, colorkey);
+
+    for(id = 0; id < NBR_MEMBER; id++)
+    {
+        position.x = players[id].position.x * SQUARE_WIDTH;
+        position.y = players[id].position.y * SQUARE_HEIGHT;
+        switch (players[id].type)
+        {
+            case SCOUT:
+                SDL_BlitSurface(scout, NULL, screen, &position);
+                break;
+            case INFANTRYMAN:
+                SDL_BlitSurface(infantryman, NULL, screen, &position);
+                break;
+            case SHOCK_TROOPS:
+                SDL_BlitSurface(shock, NULL, screen, &position);
+                break;
+            case FLAG:
+                if(players[id].flag == TRUE)
+                    SDL_BlitSurface(flag, NULL, screen, &position);
+                break;
+        }
+    }
+
+    SDL_FreeSurface(scout);
+    SDL_FreeSurface(infantryman);
+    SDL_FreeSurface(shock);
+    SDL_FreeSurface(flag);
+}
+
+
+void display_teamVue(SDL_Surface *screen, Square **map, Player *players, int team_number)
 {
     SDL_Surface *rebel = NULL, *empire = NULL;
     SDL_Rect position;
@@ -201,6 +268,8 @@ void display_teamVue(SDL_Surface *screen, Square **map, int team_number)
         SDL_BlitSurface(empire, NULL, screen, &position);
         display_blue(screen, map);
     }
+
+    display_team(screen, map, players, team_number);
 
     SDL_FreeSurface(rebel);
     SDL_FreeSurface(empire);

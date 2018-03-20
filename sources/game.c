@@ -41,7 +41,7 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
     {
         while(players[team_number - 1][i].actionPoint > 0 && event.type != SDL_QUIT)
         {
-            display_teamVue(screen, map, team_number-1);
+            display_teamVue(screen, map, players[team_number-1], team_number-1);
             display_cursor(screen, players[team_number - 1][i], i);
             fprintf(stderr, "%d PA left for player %d\n", players[team_number - 1][i].actionPoint, i);
             SDL_WaitEvent(&event);
@@ -120,7 +120,7 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
             }
 
             display_infobar(screen, players[team_number], team_number);
-            display_teamVue(screen, map, team_number-1);
+            display_teamVue(screen, map, players[team_number-1], team_number-1);
             //display_field(screen, map);
             //SDL_Flip(screen);
         }

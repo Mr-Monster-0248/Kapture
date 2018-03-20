@@ -29,17 +29,20 @@
 
     // ===== Functions =====
 
-    // Function to display the map
+    // Function to display the full map
     void display_field(SDL_Surface *screen, Square **map);
 
     // display the red fog of war
     void display_red(SDL_Surface *screen, Square **map);
 
-    // Display the field in function of the team
-    void display_teamVue(SDL_Surface *screen, Square **map, int team_number);
-
     // Display the blue team
     void display_blue(SDL_Surface *screen, Square **map);
+
+    // Display all pawns of a team
+    void display_team(SDL_Surface *screen, Square **map, Player *players, int team_number);
+
+    // Display the field in function of the team
+    void display_teamVue(SDL_Surface *screen, Square **map, Player *players, int team_number);
 
     // Function to display the infobar according to the player's team
     void display_infobar(SDL_Surface *screen, Player *players, int team_number);
