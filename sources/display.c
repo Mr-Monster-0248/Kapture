@@ -199,7 +199,7 @@ void display_team(SDL_Surface *screen, Square **map, Player *players, int team_n
     Uint32 colorkey = SDL_MapRGB(screen->format, 0, 0, 255);
     SDL_Rect position;
 
-    if(team_number == 1)
+    if(team_number == 0)
     {
         flag = SDL_LoadBMP("image/FLAG_1.bmp");
         scout = SDL_LoadBMP("image/SCOUT_1.bmp");
@@ -220,7 +220,7 @@ void display_team(SDL_Surface *screen, Square **map, Player *players, int team_n
     SDL_SetColorKey(infantryman, SDL_SRCCOLORKEY, colorkey);
     SDL_SetColorKey(shock, SDL_SRCCOLORKEY, colorkey);
 
-    for(id = 0; id < NBR_MEMBER; id++)
+    for(id = 0; id <= NBR_MEMBER; id++)
     {
         position.x = players[id].position.x * SQUARE_WIDTH;
         position.y = players[id].position.y * SQUARE_HEIGHT;

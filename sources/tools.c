@@ -84,7 +84,7 @@ Player** init_players(int number_team, int nbr_scout, int nbr_infantryman, int n
             players[i][j].actionPoint = PA_SHOCK;
         }
         players[i][j].type = FLAG;
-        players[i][j].flag = FALSE;
+        players[i][j].flag = TRUE;
         players[i][j].actionPoint = 0;
     }
 
@@ -103,10 +103,13 @@ void init_position(Square** map, Player** players, int number_team, int nbr_memb
             flag_x = 3;
         else
             flag_x = NBR_CASE_X - 4;
+
         map[flag_y][flag_x].pawn.type = FLAG;
         map[flag_y][flag_x].pawn.team = team_number + 1;
         players[team_number][nbr_members].position.x = flag_x;
         players[team_number][nbr_members].position.y = flag_y;
+        players[team_number][nbr_members].origine.x = flag_x;
+        players[team_number][nbr_members].origine.y = flag_y;
 
         for(i = 0; i < nbr_members; i++)
         {
