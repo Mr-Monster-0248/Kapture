@@ -112,11 +112,24 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
                     break;
             }
 
-            if(check_move(map, move))
+            switch (check_move(map, move, team_number))
             {
-                move_pawn(i, players, map, players[team_number - 1][i].position, move);
-                discover_map(map, move, team_number-1);
-                players[team_number - 1][i].actionPoint += remove_pa(map, players[team_number - 1][i]);
+                case MOVE:
+                    move_pawn(i, players, map, players[team_number - 1][i].position, move);
+                    discover_map(map, move, team_number-1);
+                    players[team_number - 1][i].actionPoint += remove_pa(map, players[team_number - 1][i]);
+                    break;
+                case FIGHT:
+                    // TODO fight
+                    break;
+                case TAKE_FLAG:
+                    // TODO take the flag
+                    break;
+                case GIVE_FLAG:
+                    // TODO give flag --> win game
+                    break;
+                default:
+                    print_log(screen, "ERROR move not handeled");
             }
 
             display_infobar(screen, players[team_number], team_number);
@@ -148,7 +161,7 @@ void move_pawn(int id, Player** players, Square** map, SDL_Rect prev_loc, SDL_Re
     players[team - 1][id].position.y = new_loc.y;
 }
 
-int check_move(Square **map, SDL_Rect position)
+int check_move(Square **map, SDL_Rect position, int team)
 {
     if(position.x < 0 || position.y < 0 || position.x >= NBR_CASE_X || position.y >= NBR_CASE_Y)
     {
@@ -156,10 +169,17 @@ int check_move(Square **map, SDL_Rect position)
     }
     else
     {
-        if(map[position.y][position.x].pawn.type != EMPTY)
-            return FALSE;
+        if(map[position.y][position.x].pawn.type == EMPTY)
+            return MOVE;
+        else if(map[position.y][position.x].pawn.type == FLAG)
+        {
+            if(map[position.y][position.x].pawn.team == team)
+                return GIVE_FLAG;
+            else
+                return TAKE_FLAG;
+        }
         else
-            return TRUE;
+            return FIGHT;
     }
 }
 
