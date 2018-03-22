@@ -275,6 +275,70 @@ void display_teamVue(SDL_Surface *screen, Square **map, Player *players, int tea
     SDL_FreeSurface(empire);
 }
 
+void display_adv(SDL_Surface *screen, Square **map, SDL_Rect position, int team)
+{
+    int i, j;
+    SDL_Surface *flag = NULL, *scout = NULL, *infantryman = NULL, *shock = NULL;
+    Uint32 colorkey = SDL_MapRGB(screen->format, 0, 0, 255);
+    SDL_Rect pos;
+
+    if(team == 1)
+    {
+        flag = SDL_LoadBMP("image/FLAG_1.bmp");
+        scout = SDL_LoadBMP("image/SCOUT_1.bmp");
+        infantryman = SDL_LoadBMP("image/INFANTRYMAN_1.bmp");
+        shock = SDL_LoadBMP("image/SHOCK_1.bmp");
+    }
+    else
+    {
+        flag = SDL_LoadBMP("image/FLAG_2.bmp");
+        scout = SDL_LoadBMP("image/SCOUT_2.bmp");
+        infantryman = SDL_LoadBMP("image/INFANTRYMAN_2.bmp");
+        shock = SDL_LoadBMP("image/SHOCK_2.bmp");
+    }
+
+    SDL_SetColorKey(flag, SDL_SRCCOLORKEY, colorkey);
+    SDL_SetColorKey(scout, SDL_SRCCOLORKEY, colorkey);
+    SDL_SetColorKey(infantryman, SDL_SRCCOLORKEY, colorkey);
+    SDL_SetColorKey(shock, SDL_SRCCOLORKEY, colorkey);
+
+    for(i = position.y - 2; i < position.y + 2; i++)
+    {
+        for(j = position.x - 2; j < position.x + 2; j++)
+        {
+            pos.x = j * SQUARE_WIDTH;
+            pos.y = i * SQUARE_WIDTH;
+
+            if(i >= 0 && j >= 0 && i < NBR_CASE_Y && j < NBR_CASE_X)
+            {
+                if(map[i][j].pawn.team != team+1)
+                {
+                    switch (map[i][j].pawn.type)
+                    {
+                        case SCOUT:
+                            SDL_BlitSurface(scout, NULL, screen, &pos);
+                            break;
+                        case INFANTRYMAN:
+                            SDL_BlitSurface(infantryman, NULL, screen, &pos);
+                            break;
+                        case SHOCK_TROOPS:
+                            SDL_BlitSurface(shock, NULL, screen, &pos);
+                            break;
+                        case FLAG:
+                            SDL_BlitSurface(flag, NULL, screen, &pos);
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    SDL_FreeSurface(scout);
+    SDL_FreeSurface(infantryman);
+    SDL_FreeSurface(shock);
+    SDL_FreeSurface(flag);
+}
+
 
 void display_infobar(SDL_Surface *screen, Player *players, int team_number)
 {

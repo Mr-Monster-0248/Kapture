@@ -42,6 +42,7 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
         while(players[team_number - 1][i].actionPoint > 0 && event.type != SDL_QUIT)
         {
             display_teamVue(screen, map, players[team_number-1], team_number-1);
+            display_adv(screen, map, players[team_number - 1][i].position, team_number-1);
             display_cursor(screen, players[team_number - 1][i], i);
             fprintf(stderr, "%d PA left for player %d\n", players[team_number - 1][i].actionPoint, i);
             SDL_WaitEvent(&event);
@@ -134,6 +135,7 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
 
             display_infobar(screen, players[team_number], team_number);
             display_teamVue(screen, map, players[team_number-1], team_number-1);
+            display_adv(screen, map, move, team_number);
             //display_field(screen, map);
             //SDL_Flip(screen);
         }
@@ -160,6 +162,32 @@ void move_pawn(int id, Player** players, Square** map, SDL_Rect prev_loc, SDL_Re
     players[team - 1][id].position.x = new_loc.x;
     players[team - 1][id].position.y = new_loc.y;
 }
+
+
+int fight(int player1, int player2)
+{
+    switch (player1)
+    {
+        case SCOUT:
+            if(player2 == SCOUT)
+                return rand()%2;
+            else
+                return FALSE;
+        case INFANTRYMAN:
+            if(player2 == SCOUT)
+                return TRUE;
+            else if(player2 == INFANTRYMAN)
+                return rand()%2;
+            else
+                return FALSE;
+        case SHOCK_TROOPS:
+            if(player2 == SHOCK_TROOPS)
+                return 2;
+            else
+                return TRUE;
+    }
+}
+
 
 int check_move(Square **map, SDL_Rect position, int team)
 {

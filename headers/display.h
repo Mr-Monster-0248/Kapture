@@ -44,6 +44,9 @@
     // Display the field in function of the team
     void display_teamVue(SDL_Surface *screen, Square **map, Player *players, int team_number);
 
+    // display the ennemie only when he is visible
+    void display_adv(SDL_Surface *screen, Square **map, SDL_Rect position, int team);
+
     // Function to display the infobar according to the player's team
     void display_infobar(SDL_Surface *screen, Player *players, int team_number);
 
