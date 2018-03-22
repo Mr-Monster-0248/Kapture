@@ -36,6 +36,12 @@
     // Check if a move is possible
     int check_move(Square **map, SDL_Rect position, int team);
 
+    // Function to try to win the game
+    int give_flag(Square **map, Player players, SDL_Rect pos_f);
+
+    // Function to take the flag
+    void take_flag(Square **map, Player **players, int id, int team, SDL_Rect pos_p, SDL_Rect pos_f);
+
     // remove the right number of PA in funtion on the fild the pawn is leaving
     int remove_pa(Square **map, Player player);
 

@@ -30,7 +30,7 @@ void game(SDL_Surface *screen, Square **map, Player **players)
 
 int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_number)
 {
-    int i, exit_event = FALSE;
+    int i, exit_event = FALSE, win = FALSE;
     SDL_Event event;
     SDL_Rect move;
 
@@ -134,10 +134,11 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
                     break;
                 case TAKE_FLAG:
                     print_log(screen, "Try to take a flag");
-                    // TODO take the flag
+                    take_flag(map, players, i, team_number-1, players[team_number - 1][i].position, move);
                     break;
                 case GIVE_FLAG:
-                    // TODO give flag --> win game
+                    print_log(screen, "Try to give the flag");
+                    win = give_flag(map, players[team_number-1][i], move);
                     break;
                 default:
                     print_log(screen, "ERROR move not handeled");
@@ -151,7 +152,7 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
         }
     }
 
-    return FALSE; // TODO: check the win
+    return win;
 }
 
 void move_pawn(int id, Player** players, Square** map, SDL_Rect prev_loc, SDL_Rect new_loc)
@@ -258,6 +259,8 @@ int check_move(Square **map, SDL_Rect position, int team)
     {
         if(map[position.y][position.x].pawn.type == EMPTY)
             return MOVE;
+        else if(map[position.y][position.x].pawn.type == SCOUT)
+            return FALSE;
         else if(map[position.y][position.x].pawn.type == FLAG)
         {
             if(map[position.y][position.x].pawn.team == team)
@@ -271,6 +274,35 @@ int check_move(Square **map, SDL_Rect position, int team)
             else
                 return FALSE;
     }
+}
+
+
+void take_flag(Square **map, Player **players, int id, int team, SDL_Rect pos_p, SDL_Rect pos_f)
+{
+    if(players[team][id].type != SCOUT)
+    {
+        if(map[pos_f.y][pos_f.x].pawn.flag != FALSE)
+        {
+            map[pos_f.y][pos_f.x].pawn.flag = FALSE;
+            map[pos_p.y][pos_p.x].pawn.flag = TRUE;
+
+            players[team][id].flag = TRUE;
+
+            if(team == 1)
+                players[0][NBR_MEMBER].flag = FALSE;
+            else
+                players[1][NBR_MEMBER].flag = FALSE;
+        }
+    }
+}
+
+
+int give_flag(Square **map, Player players, SDL_Rect pos_f)
+{
+    if(players.flag == TRUE && map[pos_f.y][pos_f.x].pawn.flag == TRUE)
+        return TRUE;
+    else
+        return FALSE;
 }
 
 

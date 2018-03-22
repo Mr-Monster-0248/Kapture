@@ -302,9 +302,9 @@ void display_adv(SDL_Surface *screen, Square **map, SDL_Rect position, int team)
     SDL_SetColorKey(infantryman, SDL_SRCCOLORKEY, colorkey);
     SDL_SetColorKey(shock, SDL_SRCCOLORKEY, colorkey);
 
-    for(i = position.y - 2; i < position.y + 2; i++)
+    for(i = position.y - 2; i <= position.y + 2; i++)
     {
-        for(j = position.x - 2; j < position.x + 2; j++)
+        for(j = position.x - 2; j <= position.x + 2; j++)
         {
             pos.x = j * SQUARE_WIDTH;
             pos.y = i * SQUARE_WIDTH;
