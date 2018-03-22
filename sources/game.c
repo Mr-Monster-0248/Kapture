@@ -130,7 +130,7 @@ int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_numb
                     break;
                 case FIGHT:
                     print_log(screen, "Start fight");
-                    // TODO fight
+                    start_fight(map, players, players[team_number - 1][i].position, move);
                     break;
                 case TAKE_FLAG:
                     print_log(screen, "Try to take a flag");
@@ -195,6 +195,55 @@ int fight(int player1, int player2)
                 return 2;
             else
                 return TRUE;
+    }
+}
+
+
+void start_fight(Square **map, Player **players, SDL_Rect pos_atk_o, SDL_Rect pos_def_o)
+{
+    int id_atk, id_def, team_atk, team_def;
+    SDL_Rect pos_atk, pos_def;
+
+    id_atk = map[pos_atk_o.y][pos_atk_o.x].pawn.id;
+    id_def = map[pos_def_o.y][pos_def_o.x].pawn.id;
+
+    team_atk = map[pos_atk_o.y][pos_atk_o.x].pawn.team - 1;
+    team_def = map[pos_def_o.y][pos_def_o.x].pawn.team - 1;
+
+    switch (fight(players[team_atk][id_atk].type, players[team_def][id_def].type))
+    {
+        case TRUE:
+            // check origine disp
+            move_pawn(id_def, players, map, players[team_def][id_def].position, players[team_def][id_def].origine);
+            break;
+        case FALSE:
+            move_pawn(id_atk, players, map, players[team_atk][id_atk].position, players[team_atk][id_atk].origine);
+            break;
+        case 2:
+            if(players[team_atk][id_atk].origine.y < players[team_atk][id_atk].position.y)
+            {
+                pos_atk.y = players[team_atk][id_atk].position.y -1;
+                pos_def.y = players[team_def][id_def].position.y +1;
+            }
+            else
+            {
+                pos_atk.y = players[team_atk][id_atk].position.y +1;
+                pos_def.y = players[team_def][id_def].position.y -1;
+            }
+            if(players[team_atk][id_atk].origine.x < players[team_atk][id_atk].position.x)
+            {
+                pos_atk.x = players[team_atk][id_atk].position.x -1;
+                pos_def.x = players[team_def][id_def].position.x +1;
+            }
+            else
+            {
+                pos_atk.x = players[team_atk][id_atk].position.x +1;
+                pos_def.x = players[team_def][id_def].position.x -1;
+            }
+
+            move_pawn(id_atk, players, map, players[team_atk][id_atk].position, pos_atk);
+            move_pawn(id_def, players, map, players[team_def][id_def].position, pos_def);
+            break;
     }
 }
 

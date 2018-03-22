@@ -27,6 +27,12 @@
     // Move a pawn to an other position
     void move_pawn(int id, Player** players, Square** map, SDL_Rect prev_loc, SDL_Rect new_loc);
 
+    // give the winner of a fight according to the type of pawn
+    int fight(int player1, int player2);
+
+    // Function to handle battle
+    void start_fight(Square **map, Player **players, SDL_Rect pos_atk, SDL_Rect pos_def);
+
     // Check if a move is possible
     int check_move(Square **map, SDL_Rect position, int team);
 

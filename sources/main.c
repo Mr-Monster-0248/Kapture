@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     int i;
     SDL_Surface *screen = NULL; // principal screen
 
-    Square **map = load_map("map.txt");
+    Square **map = init_map(); //load_map("map.txt");
     Player **players = init_players(NBR_OF_PLAYER, NBR_SCOUT, NBR_INFANTRYMAN, NBR_SHOCK);
 
     SDL_Init(SDL_INIT_VIDEO);
