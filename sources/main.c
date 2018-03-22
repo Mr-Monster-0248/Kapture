@@ -16,6 +16,8 @@ int main(int argc, char *argv[])
     SDL_Init(SDL_INIT_VIDEO);
     SDL_WM_SetCaption("Kapture", NULL);
 
+    SDL_ShowCursor(SDL_DISABLE);
+
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_HWSURFACE | SDL_DOUBLEBUF); // main window init
 
     if (screen == NULL) // Si l'ouverture a échoué, on le note et on arrête
