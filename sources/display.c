@@ -1,8 +1,7 @@
 #include "../headers/display.h"
 #include "../headers/game.h"
 
-void display_field(SDL_Surface *screen, Square **map)
-{
+void display_field(SDL_Surface *screen, Square **map) {
     int i, j;
     SDL_Rect position;
     SDL_Surface *normal = NULL, *forest = NULL, *river = NULL; // Field sprites
@@ -11,19 +10,19 @@ void display_field(SDL_Surface *screen, Square **map)
 
     Uint32 colorkey = SDL_MapRGB(screen->format, 0, 0, 255);
 
-    normal = SDL_LoadBMP("image/NORMAL1.bmp");
-    forest = SDL_LoadBMP("image/FOREST1.bmp");
-    river = SDL_LoadBMP("image/RIVER1.bmp");
+    normal = SDL_LoadBMP("resources/image/NORMAL1.bmp");
+    forest = SDL_LoadBMP("resources/image/FOREST1.bmp");
+    river = SDL_LoadBMP("resources/image/RIVER1.bmp");
 
-    flag1 = SDL_LoadBMP("image/FLAG_1.bmp");
-    scout1 = SDL_LoadBMP("image/SCOUT_1.bmp");
-    infantryman1 = SDL_LoadBMP("image/INFANTRYMAN_1.bmp");
-    shock1 = SDL_LoadBMP("image/SHOCK_1.bmp");
+    flag1 = SDL_LoadBMP("resources/image/FLAG_1.bmp");
+    scout1 = SDL_LoadBMP("resources/image/SCOUT_1.bmp");
+    infantryman1 = SDL_LoadBMP("resources/image/INFANTRYMAN_1.bmp");
+    shock1 = SDL_LoadBMP("resources/image/SHOCK_1.bmp");
 
-    flag2 = SDL_LoadBMP("image/FLAG_2.bmp");
-    scout2 = SDL_LoadBMP("image/SCOUT_2.bmp");
-    infantryman2 = SDL_LoadBMP("image/INFANTRYMAN_2.bmp");
-    shock2 = SDL_LoadBMP("image/SHOCK_2.bmp");
+    flag2 = SDL_LoadBMP("resources/image/FLAG_2.bmp");
+    scout2 = SDL_LoadBMP("resources/image/SCOUT_2.bmp");
+    infantryman2 = SDL_LoadBMP("resources/image/INFANTRYMAN_2.bmp");
+    shock2 = SDL_LoadBMP("resources/image/SHOCK_2.bmp");
 
     SDL_SetColorKey(flag1, SDL_SRCCOLORKEY, colorkey);
     SDL_SetColorKey(scout1, SDL_SRCCOLORKEY, colorkey);
@@ -35,15 +34,12 @@ void display_field(SDL_Surface *screen, Square **map)
     SDL_SetColorKey(infantryman2, SDL_SRCCOLORKEY, colorkey);
     SDL_SetColorKey(shock2, SDL_SRCCOLORKEY, colorkey);
 
-    for(i = 0; i < NBR_CASE_Y; i++)
-    {
-        for(j = 0; j < NBR_CASE_X; j++)
-        {
+    for (i = 0; i < NBR_CASE_Y; i++) {
+        for (j = 0; j < NBR_CASE_X; j++) {
             position.x = j * SQUARE_WIDTH;
             position.y = i * SQUARE_WIDTH;
 
-            switch(map[i][j].field)
-            {
+            switch (map[i][j].field) {
                 case NORMAL:
                     SDL_BlitSurface(normal, NULL, screen, &position);
                     break;
@@ -55,10 +51,8 @@ void display_field(SDL_Surface *screen, Square **map)
                     break;
             }
 
-            if(map[i][j].pawn.team == 1)
-            {
-                switch (map[i][j].pawn.type)
-                {
+            if (map[i][j].pawn.team == 1) {
+                switch (map[i][j].pawn.type) {
                     case SCOUT:
                         SDL_BlitSurface(scout1, NULL, screen, &position);
                         break;
@@ -72,11 +66,8 @@ void display_field(SDL_Surface *screen, Square **map)
                         SDL_BlitSurface(flag1, NULL, screen, &position);
                         break;
                 }
-            }
-            else if(map[i][j].pawn.team == 2)
-            {
-                switch (map[i][j].pawn.type)
-                {
+            } else if (map[i][j].pawn.team == 2) {
+                switch (map[i][j].pawn.type) {
                     case SCOUT:
                         SDL_BlitSurface(scout2, NULL, screen, &position);
                         break;
@@ -110,27 +101,22 @@ void display_field(SDL_Surface *screen, Square **map)
 }
 
 
-void display_red(SDL_Surface *screen, Square **map)
-{
+void display_red(SDL_Surface *screen, Square **map) {
     int i, j;
     SDL_Rect position;
     SDL_Surface *normal = NULL, *forest = NULL, *river = NULL; // Field sprites
 
-    normal = SDL_LoadBMP("image/NORMAL1.bmp");
-    forest = SDL_LoadBMP("image/FOREST1.bmp");
-    river = SDL_LoadBMP("image/RIVER1.bmp");
+    normal = SDL_LoadBMP("resources/image/NORMAL1.bmp");
+    forest = SDL_LoadBMP("resources/image/FOREST1.bmp");
+    river = SDL_LoadBMP("resources/image/RIVER1.bmp");
 
-    for(i = 0; i < NBR_CASE_Y; i++)
-    {
-        for(j = 0; j < NBR_CASE_X; j++)
-        {
+    for (i = 0; i < NBR_CASE_Y; i++) {
+        for (j = 0; j < NBR_CASE_X; j++) {
             position.x = j * SQUARE_WIDTH;
             position.y = i * SQUARE_WIDTH;
 
-            if(map[i][j].visible_red == TRUE)
-            {
-                switch(map[i][j].field)
-                {
+            if (map[i][j].visible_red == TRUE) {
+                switch (map[i][j].field) {
                     case NORMAL:
                         SDL_BlitSurface(normal, NULL, screen, &position);
                         break;
@@ -151,27 +137,22 @@ void display_red(SDL_Surface *screen, Square **map)
 }
 
 
-void display_blue(SDL_Surface *screen, Square **map)
-{
+void display_blue(SDL_Surface *screen, Square **map) {
     int i, j;
     SDL_Rect position;
     SDL_Surface *normal = NULL, *forest = NULL, *river = NULL; // Field sprites
 
-    normal = SDL_LoadBMP("image/NORMAL1.bmp");
-    forest = SDL_LoadBMP("image/FOREST1.bmp");
-    river = SDL_LoadBMP("image/RIVER1.bmp");
+    normal = SDL_LoadBMP("resources/image/NORMAL1.bmp");
+    forest = SDL_LoadBMP("resources/image/FOREST1.bmp");
+    river = SDL_LoadBMP("resources/image/RIVER1.bmp");
 
-    for(i = 0; i < NBR_CASE_Y; i++)
-    {
-        for(j = 0; j < NBR_CASE_X; j++)
-        {
+    for (i = 0; i < NBR_CASE_Y; i++) {
+        for (j = 0; j < NBR_CASE_X; j++) {
             position.x = j * SQUARE_WIDTH;
             position.y = i * SQUARE_WIDTH;
 
-            if(map[i][j].visible_blue == TRUE)
-            {
-                switch(map[i][j].field)
-                {
+            if (map[i][j].visible_blue == TRUE) {
+                switch (map[i][j].field) {
                     case NORMAL:
                         SDL_BlitSurface(normal, NULL, screen, &position);
                         break;
@@ -192,26 +173,22 @@ void display_blue(SDL_Surface *screen, Square **map)
 }
 
 
-void display_team(SDL_Surface *screen, Square **map, Player *players, int team_number)
-{
+void display_team(SDL_Surface *screen, Square **map, Player *players, int team_number) {
     int id;
     SDL_Surface *flag = NULL, *scout = NULL, *infantryman = NULL, *shock = NULL;
     Uint32 colorkey = SDL_MapRGB(screen->format, 0, 0, 255);
     SDL_Rect position;
 
-    if(team_number == 0)
-    {
-        flag = SDL_LoadBMP("image/FLAG_1.bmp");
-        scout = SDL_LoadBMP("image/SCOUT_1.bmp");
-        infantryman = SDL_LoadBMP("image/INFANTRYMAN_1.bmp");
-        shock = SDL_LoadBMP("image/SHOCK_1.bmp");
-    }
-    else
-    {
-        flag = SDL_LoadBMP("image/FLAG_2.bmp");
-        scout = SDL_LoadBMP("image/SCOUT_2.bmp");
-        infantryman = SDL_LoadBMP("image/INFANTRYMAN_2.bmp");
-        shock = SDL_LoadBMP("image/SHOCK_2.bmp");
+    if (team_number == 0) {
+        flag = SDL_LoadBMP("resources/image/FLAG_1.bmp");
+        scout = SDL_LoadBMP("resources/image/SCOUT_1.bmp");
+        infantryman = SDL_LoadBMP("resources/image/INFANTRYMAN_1.bmp");
+        shock = SDL_LoadBMP("resources/image/SHOCK_1.bmp");
+    } else {
+        flag = SDL_LoadBMP("resources/image/FLAG_2.bmp");
+        scout = SDL_LoadBMP("resources/image/SCOUT_2.bmp");
+        infantryman = SDL_LoadBMP("resources/image/INFANTRYMAN_2.bmp");
+        shock = SDL_LoadBMP("resources/image/SHOCK_2.bmp");
     }
 
 
@@ -220,12 +197,10 @@ void display_team(SDL_Surface *screen, Square **map, Player *players, int team_n
     SDL_SetColorKey(infantryman, SDL_SRCCOLORKEY, colorkey);
     SDL_SetColorKey(shock, SDL_SRCCOLORKEY, colorkey);
 
-    for(id = 0; id <= NBR_MEMBER; id++)
-    {
+    for (id = 0; id <= NBR_MEMBER; id++) {
         position.x = players[id].position.x * SQUARE_WIDTH;
         position.y = players[id].position.y * SQUARE_HEIGHT;
-        switch (players[id].type)
-        {
+        switch (players[id].type) {
             case SCOUT:
                 SDL_BlitSurface(scout, NULL, screen, &position);
                 break;
@@ -236,7 +211,7 @@ void display_team(SDL_Surface *screen, Square **map, Player *players, int team_n
                 SDL_BlitSurface(shock, NULL, screen, &position);
                 break;
             case FLAG:
-                if(players[id].flag == TRUE)
+                if (players[id].flag == TRUE)
                     SDL_BlitSurface(flag, NULL, screen, &position);
                 break;
         }
@@ -249,22 +224,18 @@ void display_team(SDL_Surface *screen, Square **map, Player *players, int team_n
 }
 
 
-void display_teamVue(SDL_Surface *screen, Square **map, Player *players, int team_number)
-{
+void display_teamVue(SDL_Surface *screen, Square **map, Player *players, int team_number) {
     SDL_Surface *rebel = NULL, *empire = NULL;
     SDL_Rect position;
     position.x = 0;
     position.y = 0;
 
-    if(team_number == 1)
-    {
-        rebel = SDL_LoadBMP("image/fond_rebel.bmp");
+    if (team_number == 1) {
+        rebel = SDL_LoadBMP("resources/image/fond_rebel.bmp");
         SDL_BlitSurface(rebel, NULL, screen, &position);
         display_red(screen, map);
-    }
-    else
-    {
-        empire = SDL_LoadBMP("image/fond_empire.bmp");
+    } else {
+        empire = SDL_LoadBMP("resources/image/fond_empire.bmp");
         SDL_BlitSurface(empire, NULL, screen, &position);
         display_blue(screen, map);
     }
@@ -275,26 +246,22 @@ void display_teamVue(SDL_Surface *screen, Square **map, Player *players, int tea
     SDL_FreeSurface(empire);
 }
 
-void display_adv(SDL_Surface *screen, Square **map, SDL_Rect position, int team)
-{
+void display_adv(SDL_Surface *screen, Square **map, SDL_Rect position, int team) {
     int i, j;
     SDL_Surface *flag = NULL, *scout = NULL, *infantryman = NULL, *shock = NULL;
     Uint32 colorkey = SDL_MapRGB(screen->format, 0, 0, 255);
     SDL_Rect pos;
 
-    if(team == 1)
-    {
-        flag = SDL_LoadBMP("image/FLAG_1.bmp");
-        scout = SDL_LoadBMP("image/SCOUT_1.bmp");
-        infantryman = SDL_LoadBMP("image/INFANTRYMAN_1.bmp");
-        shock = SDL_LoadBMP("image/SHOCK_1.bmp");
-    }
-    else
-    {
-        flag = SDL_LoadBMP("image/FLAG_2.bmp");
-        scout = SDL_LoadBMP("image/SCOUT_2.bmp");
-        infantryman = SDL_LoadBMP("image/INFANTRYMAN_2.bmp");
-        shock = SDL_LoadBMP("image/SHOCK_2.bmp");
+    if (team == 1) {
+        flag = SDL_LoadBMP("resources/image/FLAG_1.bmp");
+        scout = SDL_LoadBMP("resources/image/SCOUT_1.bmp");
+        infantryman = SDL_LoadBMP("resources/image/INFANTRYMAN_1.bmp");
+        shock = SDL_LoadBMP("resources/image/SHOCK_1.bmp");
+    } else {
+        flag = SDL_LoadBMP("resources/image/FLAG_2.bmp");
+        scout = SDL_LoadBMP("resources/image/SCOUT_2.bmp");
+        infantryman = SDL_LoadBMP("resources/image/INFANTRYMAN_2.bmp");
+        shock = SDL_LoadBMP("resources/image/SHOCK_2.bmp");
     }
 
     SDL_SetColorKey(flag, SDL_SRCCOLORKEY, colorkey);
@@ -302,19 +269,14 @@ void display_adv(SDL_Surface *screen, Square **map, SDL_Rect position, int team)
     SDL_SetColorKey(infantryman, SDL_SRCCOLORKEY, colorkey);
     SDL_SetColorKey(shock, SDL_SRCCOLORKEY, colorkey);
 
-    for(i = position.y - 2; i <= position.y + 2; i++)
-    {
-        for(j = position.x - 2; j <= position.x + 2; j++)
-        {
+    for (i = position.y - 2; i <= position.y + 2; i++) {
+        for (j = position.x - 2; j <= position.x + 2; j++) {
             pos.x = j * SQUARE_WIDTH;
             pos.y = i * SQUARE_WIDTH;
 
-            if(i >= 0 && j >= 0 && i < NBR_CASE_Y && j < NBR_CASE_X)
-            {
-                if(map[i][j].pawn.team != team+1)
-                {
-                    switch (map[i][j].pawn.type)
-                    {
+            if (i >= 0 && j >= 0 && i < NBR_CASE_Y && j < NBR_CASE_X) {
+                if (map[i][j].pawn.team != team + 1) {
+                    switch (map[i][j].pawn.type) {
                         case SCOUT:
                             SDL_BlitSurface(scout, NULL, screen, &pos);
                             break;
@@ -340,8 +302,7 @@ void display_adv(SDL_Surface *screen, Square **map, SDL_Rect position, int team)
 }
 
 
-void display_infobar(SDL_Surface *screen, Player *players, int team_number)
-{
+void display_infobar(SDL_Surface *screen, Player *players, int team_number) {
     int i;
     SDL_Surface *infobar = NULL;
     SDL_Surface *pawns_info[NBR_MEMBER] = {NULL};
@@ -354,34 +315,29 @@ void display_infobar(SDL_Surface *screen, Player *players, int team_number)
     position.x = FIELD_WIDHT;
     position.y = 0;
 
-    if(team_number == 1)
-    {
-        infobar = SDL_LoadBMP("image/INFOBAR_1.bmp");
+    if (team_number == 1) {
+        infobar = SDL_LoadBMP("resources/image/INFOBAR_1.bmp");
         check_alloc(infobar);
-        for(i = 0; i < NBR_MEMBER; i++)
-        {
-            if(i < NBR_SCOUT)
-                pawns_info[i] = SDL_LoadBMP("image/SCOUT_INFO_1.bmp");
-            else if(i < NBR_SCOUT + NBR_INFANTRYMAN)
-                pawns_info[i] = SDL_LoadBMP("image/INFANTRYMAN_INFO_1.bmp");
+        for (i = 0; i < NBR_MEMBER; i++) {
+            if (i < NBR_SCOUT)
+                pawns_info[i] = SDL_LoadBMP("resources/image/SCOUT_INFO_1.bmp");
+            else if (i < NBR_SCOUT + NBR_INFANTRYMAN)
+                pawns_info[i] = SDL_LoadBMP("resources/image/INFANTRYMAN_INFO_1.bmp");
             else
-                pawns_info[i] = SDL_LoadBMP("image/SHOCK_INFO_1.bmp");
+                pawns_info[i] = SDL_LoadBMP("resources/image/SHOCK_INFO_1.bmp");
 
             SDL_SetColorKey(pawns_info[i], SDL_SRCCOLORKEY, colorkey);
         }
-    }
-    else
-    {
-        infobar = SDL_LoadBMP("image/INFOBAR_2.bmp");
+    } else {
+        infobar = SDL_LoadBMP("resources/image/INFOBAR_2.bmp");
         check_alloc(infobar);
-        for(i = 0; i < NBR_MEMBER; i++)
-        {
-            if(i < NBR_SCOUT)
-                pawns_info[i] = SDL_LoadBMP("image/SCOUT_INFO_2.bmp");
-            else if(i < NBR_SCOUT + NBR_INFANTRYMAN)
-                pawns_info[i] = SDL_LoadBMP("image/INFANTRYMAN_INFO_2.bmp");
+        for (i = 0; i < NBR_MEMBER; i++) {
+            if (i < NBR_SCOUT)
+                pawns_info[i] = SDL_LoadBMP("resources/image/SCOUT_INFO_2.bmp");
+            else if (i < NBR_SCOUT + NBR_INFANTRYMAN)
+                pawns_info[i] = SDL_LoadBMP("resources/image/INFANTRYMAN_INFO_2.bmp");
             else
-                pawns_info[i] = SDL_LoadBMP("image/SHOCK_INFO_2.bmp");
+                pawns_info[i] = SDL_LoadBMP("resources/image/SHOCK_INFO_2.bmp");
 
             SDL_SetColorKey(pawns_info[i], SDL_SRCCOLORKEY, colorkey);
         }
@@ -390,8 +346,7 @@ void display_infobar(SDL_Surface *screen, Player *players, int team_number)
     SDL_BlitSurface(infobar, NULL, screen, &position);
 
     position.y = position.y + 150;
-    for(i = 0; i < NBR_MEMBER; i++)
-    {
+    for (i = 0; i < NBR_MEMBER; i++) {
         SDL_BlitSurface(pawns_info[i], NULL, screen, &position);
         position.y = position.y + 40;
     }
@@ -399,20 +354,19 @@ void display_infobar(SDL_Surface *screen, Player *players, int team_number)
     SDL_Flip(screen);
 
     SDL_FreeSurface(infobar);
-    for(i = 0; i < NBR_MEMBER; i++)
+    for (i = 0; i < NBR_MEMBER; i++)
         SDL_FreeSurface(pawns_info[i]);
 }
 
 
-void display_cursor(SDL_Surface *screen, Player player, int id)
-{
+void display_cursor(SDL_Surface *screen, Player player, int id) {
     SDL_Surface *cursor = NULL, *cursor_info = NULL;
     Uint32 colorkey = SDL_MapRGB(screen->format, 0, 0, 255);
 
     SDL_Rect position, pos_info;
 
-    cursor = SDL_LoadBMP("image/CURSOR_GOLD.bmp");
-    cursor_info = SDL_LoadBMP("image/CURSOR_INFOBAR_GOLD.bmp");
+    cursor = SDL_LoadBMP("resources/image/CURSOR_GOLD.bmp");
+    cursor_info = SDL_LoadBMP("resources/image/CURSOR_INFOBAR_GOLD.bmp");
     SDL_SetColorKey(cursor, SDL_SRCCOLORKEY, colorkey);
     SDL_SetColorKey(cursor_info, SDL_SRCCOLORKEY, colorkey);
 
@@ -420,7 +374,7 @@ void display_cursor(SDL_Surface *screen, Player player, int id)
     position.y = player.position.y * SQUARE_HEIGHT;
 
     pos_info.x = FIELD_WIDHT;
-    pos_info.y = 150 + 40*id;
+    pos_info.y = 150 + 40 * id;
 
     SDL_BlitSurface(cursor, NULL, screen, &position);
     SDL_BlitSurface(cursor_info, NULL, screen, &pos_info);
@@ -431,8 +385,7 @@ void display_cursor(SDL_Surface *screen, Player player, int id)
 }
 
 
-int main_menu(SDL_Surface *screen)
-{
+int main_menu(SDL_Surface *screen) {
     int choix;
     SDL_Surface *menu = NULL;
     SDL_Event event;
@@ -440,21 +393,19 @@ int main_menu(SDL_Surface *screen)
     pos.x = 0;
     pos.y = 0;
 
-    menu = SDL_LoadBMP("image/Menu_kapture.bmp");
+    menu = SDL_LoadBMP("resources/image/Menu_kapture.bmp");
 
     SDL_BlitSurface(menu, NULL, screen, &pos);
     SDL_Flip(screen);
 
     do {
         SDL_WaitEvent(&event);
-        switch(event.type)
-        {
+        switch (event.type) {
             case SDL_QUIT:
                 choix = 0;
                 break;
             case SDL_KEYDOWN:
-                switch (event.key.keysym.sym)
-                {
+                switch (event.key.keysym.sym) {
                     case SDLK_ESCAPE:
                         choix = 0;
                         break;
@@ -470,24 +421,22 @@ int main_menu(SDL_Surface *screen)
                 }
                 break;
         }
-    } while(choix < 0 || choix > 4);
+    } while (choix < 0 || choix > 4);
 
     SDL_FreeSurface(menu);
     return choix;
 }
 
-void print_log(SDL_Surface *screen, char *message)
-{
-    FILE* logfile = NULL;
-    logfile = fopen("game.log","a");
+void print_log(SDL_Surface *screen, char *message) {
+    FILE *logfile = NULL;
+    logfile = fopen("game.log", "a");
     fprintf(logfile, "%s\n", message);
     fclose(logfile);
 }
 
-void clear_log()
-{
-    FILE* logfile = NULL;
-    logfile = fopen("game.log","w+");
+void clear_log() {
+    FILE *logfile = NULL;
+    logfile = fopen("game.log", "w+");
     fprintf(logfile, "");
     fclose(logfile);
 }

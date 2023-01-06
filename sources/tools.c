@@ -1,16 +1,13 @@
 #include "../headers/constant.h"
 #include "../headers/tools.h"
 
-Square** init_map()
-{
+Square **init_map() {
     int i, j;
-    Square **map = (Square**) malloc(NBR_CASE_Y * sizeof(Square*));
+    Square **map = (Square **) malloc(NBR_CASE_Y * sizeof(Square *));
 
-    for (i = 0; i < NBR_CASE_Y; i++)
-    {
-        map[i] = (Square*) malloc(NBR_CASE_X * sizeof(Square));
-        for (j = 0; j < NBR_CASE_X; j++)
-        {
+    for (i = 0; i < NBR_CASE_Y; i++) {
+        map[i] = (Square *) malloc(NBR_CASE_X * sizeof(Square));
+        for (j = 0; j < NBR_CASE_X; j++) {
             map[i][j].field = NORMAL;
             map[i][j].pawn.team = 0;
             map[i][j].pawn.type = EMPTY;
@@ -24,26 +21,22 @@ Square** init_map()
 }
 
 
-Square** load_map(char *file_path)
-{
+Square **load_map(char *file_path) {
     int i, j, x;
-    Square **map = (Square**) malloc(NBR_CASE_Y * sizeof(Square*));
+    Square **map = (Square **) malloc(NBR_CASE_Y * sizeof(Square *));
 
-    FILE* fichier = NULL;
-    fichier = fopen(file_path,"r");
+    FILE *fichier = NULL;
+    fichier = fopen(file_path, "r");
 
-    if (fichier == NULL)
-    {
+    if (fichier == NULL) {
         printf("il manque le fichier map.txt");
     }
 
-    for (i = 0; i < NBR_CASE_Y; i++)
-    {
-        map[i] = (Square*) malloc(NBR_CASE_X * sizeof(Square));
-        for (j = 0; j < NBR_CASE_X; j++)
-        {
+    for (i = 0; i < NBR_CASE_Y; i++) {
+        map[i] = (Square *) malloc(NBR_CASE_X * sizeof(Square));
+        for (j = 0; j < NBR_CASE_X; j++) {
             x = fgetc(fichier);
-            map[i][j].field = x-48;
+            map[i][j].field = x - 48;
             map[i][j].pawn.team = 0;
             map[i][j].pawn.type = EMPTY;
             map[i][j].pawn.flag = FALSE;
@@ -57,28 +50,23 @@ Square** load_map(char *file_path)
 }
 
 
-Player** init_players(int number_team, int nbr_scout, int nbr_infantryman, int nbr_shock)
-{
+Player **init_players(int number_team, int nbr_scout, int nbr_infantryman, int nbr_shock) {
     int i, j;
-    Player **players = (Player**) malloc(number_team * sizeof(Player*));
+    Player **players = (Player **) malloc(number_team * sizeof(Player *));
 
-    for (i = 0; i < number_team; i++)
-    {
-        players[i] = (Player*) malloc((nbr_scout + nbr_infantryman + nbr_shock + 1) * sizeof(Player));
-        for (j = 0; j < nbr_scout; j++)
-        {
+    for (i = 0; i < number_team; i++) {
+        players[i] = (Player *) malloc((nbr_scout + nbr_infantryman + nbr_shock + 1) * sizeof(Player));
+        for (j = 0; j < nbr_scout; j++) {
             players[i][j].type = SCOUT;
             players[i][j].flag = FALSE;
             players[i][j].actionPoint = PA_SCOUT;
         }
-        for (j = j; j < (nbr_scout + nbr_infantryman); j++)
-        {
+        for (j = j; j < (nbr_scout + nbr_infantryman); j++) {
             players[i][j].type = INFANTRYMAN;
             players[i][j].flag = FALSE;
             players[i][j].actionPoint = PA_INFANTRYMAN;
         }
-        for (j = j; j < (nbr_scout + nbr_infantryman + nbr_shock); j++)
-        {
+        for (j = j; j < (nbr_scout + nbr_infantryman + nbr_shock); j++) {
             players[i][j].type = SHOCK_TROOPS;
             players[i][j].flag = FALSE;
             players[i][j].actionPoint = PA_SHOCK;
@@ -92,14 +80,12 @@ Player** init_players(int number_team, int nbr_scout, int nbr_infantryman, int n
 }
 
 
-void init_position(Square** map, Player** players, int number_team, int nbr_members)
-{
+void init_position(Square **map, Player **players, int number_team, int nbr_members) {
     int i, flag_x, flag_y, x, y, team_number;
 
-    for(team_number = 0; team_number < number_team; team_number ++)
-    {
+    for (team_number = 0; team_number < number_team; team_number++) {
         flag_y = rand() % (NBR_CASE_Y - 6) + 3;
-        if(team_number == 0)
+        if (team_number == 0)
             flag_x = 3;
         else
             flag_x = NBR_CASE_X - 4;
@@ -111,13 +97,11 @@ void init_position(Square** map, Player** players, int number_team, int nbr_memb
         players[team_number][nbr_members].origine.x = flag_x;
         players[team_number][nbr_members].origine.y = flag_y;
 
-        for(i = 0; i < nbr_members; i++)
-        {
-            do
-            {
+        for (i = 0; i < nbr_members; i++) {
+            do {
                 y = rand() % 4 + flag_y - 2;
                 x = rand() % 4 + flag_x - 2;
-            } while(map[y][x].pawn.type != EMPTY);
+            } while (map[y][x].pawn.type != EMPTY);
 
             map[y][x].pawn.type = players[team_number][i].type;
             map[y][x].pawn.team = team_number + 1;
@@ -132,36 +116,27 @@ void init_position(Square** map, Player** players, int number_team, int nbr_memb
     }
 }
 
-void discover_map(Square **map, SDL_Rect position, int team)
-{
+void discover_map(Square **map, SDL_Rect position, int team) {
     int i, j;
 
-    if(team == 1)
-    {
-        for(i = position.y -1; i <= position.y +1; i++)
-        {
-            for(j = position.x -1; j <= position.x +1; j++)
-            {
-                if(i >= 0 && j >= 0 && i < NBR_CASE_Y && j < NBR_CASE_X && (i == position.y || j == position.x))
+    if (team == 1) {
+        for (i = position.y - 1; i <= position.y + 1; i++) {
+            for (j = position.x - 1; j <= position.x + 1; j++) {
+                if (i >= 0 && j >= 0 && i < NBR_CASE_Y && j < NBR_CASE_X && (i == position.y || j == position.x))
                     map[i][j].visible_red = TRUE;
             }
         }
-    }
-    else
-    {
-        for(i = position.y -1; i <= position.y +1; i++)
-        {
-            for(j = position.x -1; j <= position.x +1; j++)
-            {
-                if(i >= 0 && j >= 0 && i < NBR_CASE_Y && j < NBR_CASE_X && (i == position.y || j == position.x))
+    } else {
+        for (i = position.y - 1; i <= position.y + 1; i++) {
+            for (j = position.x - 1; j <= position.x + 1; j++) {
+                if (i >= 0 && j >= 0 && i < NBR_CASE_Y && j < NBR_CASE_X && (i == position.y || j == position.x))
                     map[i][j].visible_blue = TRUE;
             }
         }
     }
 }
 
-void free_2D_array(void** array, int size_x)
-{
+void free_2D_array(void **array, int size_x) {
     int i = 0;
 
     for (i = 0; i < size_x; i++)
@@ -170,10 +145,8 @@ void free_2D_array(void** array, int size_x)
     free(array);
 }
 
-void check_alloc(void* p)
-{
-    if (!p)
-    {
+void check_alloc(void *p) {
+    if (!p) {
         fprintf(stderr, "Allocation error\n");
         exit(EXIT_FAILURE);
     }
