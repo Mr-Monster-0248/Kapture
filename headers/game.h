@@ -1,52 +1,56 @@
-#ifndef GAME
-    #define GAME
+//
+// Created by Thibault Lepez on 06/01/2023.
+//
 
-    #include "constant.h"
-    #include "display.h"
-    #include "tools.h"
+#ifndef KAPTURE_2_GAME_H
+#define KAPTURE_2_GAME_H
 
-    #define NBR_OF_PLAYER 2
+#include "constant.h"
+#include "display.h"
+#include "tools.h"
 
-    #define NBR_SCOUT 4
-    #define NBR_INFANTRYMAN 2
-    #define NBR_SHOCK 1
-    #define NBR_MEMBER NBR_SCOUT + NBR_INFANTRYMAN + NBR_SHOCK
+#define NBR_OF_PLAYER 2
 
-    // ===== GAME MODE =====
-    #define MOVE 1
-    #define FIGHT 2
-    #define TAKE_FLAG 3
-    #define GIVE_FLAG 4
+#define NBR_SCOUT 4
+#define NBR_INFANTRYMAN 2
+#define NBR_SHOCK 1
+#define NBR_MEMBER NBR_SCOUT + NBR_INFANTRYMAN + NBR_SHOCK
 
-    // Main game fonction
-    void game(SDL_Surface *screen, Square **map, Player **players);
+// ===== GAME MODE =====
+#define MOVE 1
+#define FIGHT 2
+#define TAKE_FLAG 3
+#define GIVE_FLAG 4
 
-    // Function that execut a game turn
-    int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_number);
+// Main game fonction
+void game(SDL_Surface *screen, Square **map, Player **players);
 
-    // Move a pawn to an other position
-    void move_pawn(int id, Player** players, Square** map, SDL_Rect prev_loc, SDL_Rect new_loc);
+// Function that execut a game turn
+int game_turn(SDL_Surface *screen, Square **map, Player **players, int team_number);
 
-    // give the winner of a fight according to the type of pawn
-    int fight(int player1, int player2);
+// Move a pawn to an other position
+void move_pawn(int id, Player **players, Square **map, SDL_Rect prev_loc, SDL_Rect new_loc);
 
-    // Function to handle battle
-    void start_fight(Square **map, Player **players, SDL_Rect pos_atk, SDL_Rect pos_def);
+// give the winner of a fight according to the type of pawn
+int fight(int player1, int player2);
 
-    // Check if a move is possible
-    int check_move(Square **map, SDL_Rect position, int team);
+// Function to handle battle
+void start_fight(Square **map, Player **players, SDL_Rect pos_atk, SDL_Rect pos_def);
 
-    // Function to try to win the game
-    int give_flag(Square **map, Player players, SDL_Rect pos_f);
+// Check if a move is possible
+int check_move(Square **map, SDL_Rect position, int team);
 
-    // Function to take the flag
-    void take_flag(Square **map, Player **players, int id, int team, SDL_Rect pos_p, SDL_Rect pos_f);
+// Function to try to win the game
+int give_flag(Square **map, Player players, SDL_Rect pos_f);
 
-    // remove the right number of PA in funtion on the fild the pawn is leaving
-    int remove_pa(Square **map, Player player);
+// Function to take the flag
+void take_flag(Square **map, Player **players, int id, int team, SDL_Rect pos_p, SDL_Rect pos_f);
 
-    // Give back pa to players
-    void give_pa(Player **players);
+// remove the right number of PA in funtion on the fild the pawn is leaving
+int remove_pa(Square **map, Player player);
+
+// Give back pa to players
+void give_pa(Player **players);
 
 
-#endif
+#endif //KAPTURE_2_GAME_H

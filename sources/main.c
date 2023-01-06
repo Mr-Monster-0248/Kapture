@@ -4,13 +4,12 @@
 
 void pause();
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     srand(time(NULL));
     int i;
     SDL_Surface *screen = NULL; // principal screen
 
-    Square **map = init_map(); //load_map("map.txt");
+    Square **map = init_map(); //load_map(" map.txt");
     Player **players = init_players(NBR_OF_PLAYER, NBR_SCOUT, NBR_INFANTRYMAN, NBR_SHOCK);
 
     SDL_Init(SDL_INIT_VIDEO);
@@ -30,8 +29,7 @@ int main(int argc, char *argv[])
     print_log(screen, "Map loaded");
     print_log(screen, "Teams initialized");
 
-    switch (main_menu(screen))
-    {
+    switch (main_menu(screen)) {
         case 1:
             game(screen, map, players);
             break;
@@ -49,11 +47,11 @@ int main(int argc, char *argv[])
 
     //pause();
 
-    for(i = 0; i < NBR_CASE_Y; i++)
+    for (i = 0; i < NBR_CASE_Y; i++)
         free(map[i]);
     free(map);
 
-    for(i = 0; i < NBR_OF_PLAYER; i++)
+    for (i = 0; i < NBR_OF_PLAYER; i++)
         free(players[i]);
     free(players);
 
@@ -61,21 +59,18 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-void pause()
-{
+void pause() {
     int continuer = 1;
     SDL_Event event;
 
-    while (continuer)
-    {
+    while (continuer) {
         SDL_WaitEvent(&event);
-        switch(event.type)
-        {
+        switch (event.type) {
             case SDL_QUIT:
                 continuer = 0;
                 break;
             case SDL_KEYDOWN:
-                if(event.key.keysym.sym == SDLK_ESCAPE)
+                if (event.key.keysym.sym == SDLK_ESCAPE)
                     continuer = 0;
                 break;
         }
